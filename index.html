@@ -1,26 +1,28 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#1f6feb"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Pasabuy"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
-<title>Pasabuy Tracker</title><style>:root{--bg:#f3f5f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--pri:#1f6feb;--pri2:#e8f0fe;--ok:#12805c;--okbg:#e3f6ee;--warn:#b25e00;--warnbg:#fff1dc;--bad:#c62828;--badbg:#fde7e7;--line:#e2e6ee;--r:14px}
+<meta name="theme-color" content="#ead8c0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EC Pasabuy"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
+<title>EC Pasabuy PH</title><style>:root{--bg:#faf4ec;--card:#fff;--ink:#2b2118;--mute:#7b6a5b;--pri:#654023;--pri2:#f1e3d0;--navy:#1b2234;--tan:#d5b79b;--ok:#12805c;--okbg:#e3f6ee;--warn:#9a5a00;--warnbg:#fff1dc;--bad:#c62828;--badbg:#fde7e7;--line:#eadccb;--r:14px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 body{padding-bottom:calc(150px + env(safe-area-inset-bottom))}
-header{position:sticky;top:0;z-index:5;background:var(--pri);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;display:flex;align-items:center;justify-content:space-between}
-header h1{margin:0;font-size:18px}header small{opacity:.85}
+header{position:sticky;top:0;z-index:5;background:#ead8c0;color:var(--navy);padding:calc(8px + env(safe-area-inset-top)) 14px 8px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--tan)}
+header img{width:42px;height:42px;border-radius:50%;flex:none}
+header h1{margin:0;font-size:18px;line-height:1.1;color:var(--navy)}header small{color:var(--pri);font-size:12px}
 main{padding:12px;max-width:720px;margin:0 auto}
-.card{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.card{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(60,40,20,.08)}
 .card h3{margin:0 0 10px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
 label{display:block;font-size:12px;color:var(--mute);margin:8px 0 3px}
 input,select,textarea{width:100%;font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);min-height:44px}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--pri);border-color:transparent}
+input[type=checkbox]{width:22px;min-height:22px;height:22px;padding:0;accent-color:var(--pri);flex:none}
 textarea{min-height:60px;resize:vertical}
 .row{display:flex;gap:8px}.row>*{flex:1;min-width:0}
 .btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;font:inherit;font-weight:600;background:var(--pri);color:#fff;min-height:46px;cursor:pointer}
 .btn.sec{background:var(--pri2);color:var(--pri)}.btn.bad{background:var(--badbg);color:var(--bad)}.btn.ghost{background:transparent;color:var(--pri)}
 .btn.sm{padding:7px 12px;min-height:36px;font-size:14px}.btn.block{width:100%}
-.item{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px;background:#fbfcfe}
+.item{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px;background:#fdf9f4}
 .item .calc{font-size:12px;color:var(--mute);margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 10px}
 .item .calc b{color:var(--ink)}
 .item .top{display:flex;gap:8px;align-items:flex-end}.item .top>div:first-child{flex:1}
@@ -28,36 +30,46 @@ textarea{min-height:60px;resize:vertical}
 .sum div{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--line)}
 .sum div:last-child{border:0}.sum .big{font-size:20px;font-weight:700;color:var(--pri)}
 .bar{position:fixed;left:0;right:0;bottom:calc(58px + env(safe-area-inset-bottom));z-index:6;background:#fff;border-top:1px solid var(--line);padding:8px 12px;display:flex;gap:10px;align-items:center;justify-content:space-between}
-.bar .t{font-size:12px;color:var(--mute)}.bar .v{font-size:19px;font-weight:700}
+.bar .t{font-size:12px;color:var(--mute)}.bar .v{font-size:19px;font-weight:700;color:var(--navy)}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:7;background:#fff;border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
 nav button{flex:1;border:0;background:none;padding:8px 0 6px;font:inherit;font-size:11px;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:2px;min-height:58px}
-nav button span{font-size:21px;line-height:1}nav button.on{color:var(--pri);font-weight:700}
+nav button span{font-size:20px;line-height:1}nav button.on{color:var(--pri);font-weight:700;background:#fbf2e6}
 .pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;background:var(--pri2);color:var(--pri);white-space:nowrap}
 .pill.ok{background:var(--okbg);color:var(--ok)}.pill.warn{background:var(--warnbg);color:var(--warn)}.pill.bad{background:var(--badbg);color:var(--bad)}
-.ord{display:block;width:100%;text-align:left;border:0;background:var(--card);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.06);font:inherit;color:inherit}
+.ord{display:block;width:100%;text-align:left;border:0;background:var(--card);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(60,40,20,.08);font:inherit;color:inherit}
 .ord .h{display:flex;justify-content:space-between;gap:8px;font-weight:700}
-.ord .s{font-size:13px;color:var(--mute);margin:4px 0 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ord .s{font-size:13px;color:var(--mute);margin:4px 0 8px}
+.ord .its{margin:6px 0 8px;padding:6px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}
+.ord .its div{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:2px 0}
+.ord .its div span:last-child{white-space:nowrap;color:var(--ink);font-weight:600}
 .ord .f{display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap}
-.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px}.chips button{flex:none;border:1px solid var(--line);background:#fff;border-radius:99px;padding:7px 13px;font:inherit;font-size:13px;min-height:36px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px}.chips button{flex:none;border:1px solid var(--line);background:#fff;border-radius:99px;padding:7px 13px;font:inherit;font-size:13px;min-height:36px;color:var(--ink)}
 .chips button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
 .kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.kpi{background:var(--card);border-radius:var(--r);padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,.06)}.kpi small{color:var(--mute);font-size:12px}.kpi div{font-size:18px;font-weight:700}
-.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:20;display:none}
+.kpi{background:var(--card);border-radius:var(--r);padding:10px 12px;box-shadow:0 1px 2px rgba(60,40,20,.08)}.kpi small{color:var(--mute);font-size:12px}.kpi div{font-size:18px;font-weight:700;color:var(--navy)}.kpi em{display:block;font-style:normal;font-size:12px;color:var(--mute)}
+.sheet-bg{position:fixed;inset:0;background:rgba(30,20,10,.45);z-index:20;display:none}
 .sheet{position:fixed;left:0;right:0;bottom:0;max-height:92vh;overflow:auto;background:var(--bg);border-radius:20px 20px 0 0;padding:14px 12px calc(20px + env(safe-area-inset-bottom));z-index:21;display:none;max-width:720px;margin:0 auto}
-.sheet h2{margin:2px 4px 10px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
+.sheet h2{margin:2px 4px 10px;font-size:18px;display:flex;justify-content:space-between;align-items:center;color:var(--navy)}
 .muted{color:var(--mute);font-size:13px}.neg{color:var(--bad)}.pos{color:var(--ok)}
 table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}table.t td:last-child,table.t th:last-child{text-align:right}
 .empty{text-align:center;color:var(--mute);padding:30px 10px}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(140px + env(safe-area-inset-bottom));background:#1c2430;color:#fff;padding:10px 16px;border-radius:99px;z-index:50;font-size:14px;opacity:0;transition:.25s;pointer-events:none;max-width:90%;text-align:center}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(140px + env(safe-area-inset-bottom));background:var(--navy);color:#fff;padding:10px 16px;border-radius:99px;z-index:50;font-size:14px;opacity:0;transition:.25s;pointer-events:none;max-width:90%;text-align:center}
 .toast.on{opacity:1}
 .warnline{font-size:12px;color:var(--warn);margin-top:6px}
+.meter{height:10px;background:var(--pri2);border-radius:99px;overflow:hidden}.meter i{display:block;height:100%;background:var(--pri);border-radius:99px}
+.rrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);width:100%;background:none;border-left:0;border-right:0;border-top:0;font:inherit;color:inherit;text-align:left}
+.rrow:last-child{border-bottom:0}.rrow .n{font-weight:600}.rrow .r{text-align:right;white-space:nowrap}
+.pipe{display:grid;grid-template-columns:120px 1fr 28px;gap:8px;align-items:center;padding:4px 0;font-size:14px}.pipe b{text-align:right}
+.chk{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:15px;color:var(--ink);margin:0}
+.rcpt{width:100%;border-radius:12px;box-shadow:0 2px 8px rgba(60,40,20,.15);display:block;margin:0 auto 12px;background:#fbf2e8}
 </style></head>
 <body>
-<header><h1>EC Pasabuy PH</h1><small>Cost calculator &amp; order log</small></header>
+<header><img id="logo" alt="E&amp;C Pasabuy" src=""><div><h1>EC Pasabuy PH</h1><small>We travel. You shop. We deliver.</small></div></header>
 <main id="view"></main>
 <div class="bar" id="bar"></div>
-<nav><button data-tab="order"><span>🧮</span>Order</button><button data-tab="orders"><span>📋</span>Orders</button><button data-tab="trips"><span>✈️</span>Trips</button><button data-tab="more"><span>⚙️</span>More</button></nav>
+<nav><button data-tab="order"><span>🧮</span>Order</button><button data-tab="orders"><span>📋</span>Orders</button><button data-tab="trips"><span>✈️</span>Trips</button><button data-tab="reports"><span>📊</span>Reports</button><button data-tab="more"><span>⚙️</span>More</button></nav>
 <div class="sheet-bg" id="sbg"></div><div class="sheet" id="sheet"></div><div class="toast" id="toast"></div>
+<script>window.LOGO_URI="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAAFACAMAAAD6TlWYAAABIFBMVEXm5vmwn44IDiRfUD9///+igF++wL/gv53b0L/78ugAAADTtpr47uMnGA0bIjMyJBj+/v5lQiRjPiHv5trWw69IOCvQvKfHqYxTRTfl2s5pWUpzZFWKemqzpJXb1MqqmoqThHUQGCo1LCbTzMNaNRfixqq6tKuulHphOxyak4z59e5UTEWyq6N0VDj8+/sdEQhzbGUWCwN6cmuki3M8MSeTjIT7+fb69vL69vCDalNbUkqKclz69/Pm0bv//7MyOEVWW2SqqqpJLRa/v787Qk1dYWmBWjj/v79ALiH/qqr//wBmQB7BoH15fIL/AAD//39gTkD/f39/f3/bwZ3gvqDjwJ4gDwN9gof68N4A//+ekH6dnqGgn6LAnXrAn4DX//9zeELKAAAAYHRSTlML////Av/////+AP/+////BP/////////////////////////////////P////Lv////////9Oj6////9x/wP//wP/BP///wT/AwH///8BAv8CAv///////wH//////wZZWghfAABFJ0lEQVR42u19CXubSrK27rcTQZACjZodo82yJGu3Lck5OZM5Z+ac2e++3/v//8VX1c3SIIRAwknm3uFJYseWBLzU8lZ1dVXr3V+Om47WXyD4Lw5ghx9/AbAeYL/+jn/9Tfxj9v/vvkEwW9+6qBX8+JsSytY3gt13P6ffPz4+vb4+w/HykBwv8N/X16enxxQ4JpD/7QHs/KLT+UOEHOCGmEkXDgDzNQHyq4ti66sK3i8jFAC6FwE4mf2JvoN/ZJn9CA8BRwbjVwex9fW0NsIOpE6UL/lU5OSzvwFpfH36uiC2viJ6HZC7BKMieJjIyclx+lv+zctzAuJ/BwA5N+k8Phcau2KsxF8W/+rllanzl8ew9TVk7/EpQk8+D46mmabn9XW973meaWra2dfG0vvABfELY9j68uhxvRURSL/XPN2dBGvbmlJCyDZU4QjDcEsIpQfLdiau0ddO35Y8ixeG4XdfEMMvBiDwFQG9E+w0b+Q79pSoqnLhUAm1nMkoxvFEqV8iOfyvBSC7n85THj2OXd93LCICp4Zc4Oy1EwSOs17a1gFFMlRFHA+OG6Eo5wTxGe3hF1Ll1peCD7yGaLA4eLLnCtihbK0D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";</script><script>document.getElementById('logo').src=window.LOGO_URI;</script>
 <script>/* Pasabuy core logic – mirrors the rules in the Excel workbook */
 (function (root) {
   'use strict';
@@ -85,18 +97,26 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
   function calcLine(it, settings) {
     const rate = settings && has(settings.serviceRate) ? settings.serviceRate : 0.2;
     if (!String(it.name || '').trim() || !has(it.price)) return null;
-    const qty = num(it.qty), itemCost = qty * num(it.price);
+    const qty = num(it.qty), unit = num(it.price), itemCost = qty * unit;
     const service = itemCost * rate;
     const sizeFee = qty * (SIZES[it.size] || 0);
     const weightFee = qty * weightFeePer(it.weight);
     const estimated = itemCost + service + sizeFee + weightFee;
     const hasOverride = has(it.override);
     const final = hasOverride ? num(it.override) : estimated;
-    return { name: String(it.name).trim(), qty, size: it.size || 'Small', itemCost, service, sizeFee, weightFee, estimated,
+    return { name: String(it.name).trim(), qty, unit, size: it.size || 'Small', unitWeight: has(it.weight) ? num(it.weight) : '', itemCost, service, sizeFee, weightFee, estimated,
       override: hasOverride ? num(it.override) : null, final, weightKg: qty * num(it.weight), inquire: num(it.weight) > 3 };
   }
 
-  // Returns the order metrics used everywhere (calculator, log, reports)
+  // "2x Name [Small]; 1x Other [Medium]"  ->  [{name, qty, size, price:null}]
+  function parseSummary(s) {
+    return String(s || '').split(/;\s*/).filter((p) => p.trim()).map((p) => {
+      const m = p.match(/^\s*(\d+(?:\.\d+)?)\s*x\s+(.*?)\s*(?:\[([^\]]*)\])?\s*$/i);
+      return m ? { name: m[2], qty: parseFloat(m[1]), size: m[3] || '', price: null, line: null } : { name: p.trim(), qty: 1, size: '', price: null, line: null };
+    });
+  }
+
+  // Order metrics used everywhere (calculator, log, reports, receipt)
   function metrics(o, settings) {
     const effort = num(o.effort), other = num(o.other), paid = num(o.paid);
     let m;
@@ -107,12 +127,13 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
       m = { lines, itemCost: sum('itemCost'), service: sum('service'), sizeFee: sum('sizeFee'), weightFee: sum('weightFee'),
         estimated: sum('estimated') + effort + other, override: ov.length ? ov.reduce((a, l) => a + l.override, 0) : null,
         final: sum('final') + effort + other, qty: sum('qty'), weightKg: sum('weightKg'),
-        summary: lines.map((l) => l.qty + 'x ' + l.name + ' [' + l.size + ']').join('; '), inquire: lines.some((l) => l.inquire) };
+        summary: lines.map((l) => l.qty + 'x ' + l.name + ' [' + l.size + ']').join('; '), inquire: lines.some((l) => l.inquire),
+        itemList: lines.map((l) => ({ name: l.name, qty: l.qty, size: l.size, price: l.final, line: l })) };
     } else {
       const s = o.snap || {};
       m = { lines: [], itemCost: num(s.itemCost), service: num(s.service), sizeFee: num(s.sizeFee), weightFee: num(s.weightFee),
         estimated: num(s.estimated), override: has(s.override) ? num(s.override) : null, final: num(s.final), qty: num(s.qty),
-        weightKg: num(s.weightKg), summary: s.summary || '', inquire: false };
+        weightKg: num(s.weightKg), summary: s.summary || '', inquire: false, itemList: parseSummary(s.summary) };
     }
     m.effort = effort; m.other = other; m.paid = paid;
     m.balance = Math.max(m.final - paid, 0);
@@ -122,7 +143,6 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
   }
 
   function allocatedExpenses(o, ctx) {
-    // ctx: { orders, expenses, mmap }  (mmap: id -> metrics)
     if (!o.tripId) return 0;
     const tripOrders = ctx.orders.filter((x) => x.tripId === o.tripId);
     const exp = ctx.expenses.filter((e) => e.tripId === o.tripId);
@@ -161,6 +181,36 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
       return { trip: t, orders: rows.length, revenue, fee, expenses: exp, net, margin: fee ? net / fee : 0,
         avg: rows.length ? net / rows.length : 0, outstanding };
     });
+  }
+
+  // Reporting data for one trip (tripId) or all trips ('')
+  function report(state, tripId) {
+    const log = buildLog(state).filter((r) => !tripId || r.o.tripId === tripId);
+    const exps = state.expenses.filter((e) => !tripId || e.tripId === tripId);
+    const sum = (f) => log.reduce((a, r) => a + f(r), 0);
+    const revenue = sum((r) => r.m.final), collected = sum((r) => r.m.paid), outstanding = sum((r) => r.m.balance), fee = sum((r) => r.m.feeIncome);
+    const expenses = exps.reduce((a, e) => a + num(e.amount), 0), net = fee - expenses;
+    const buyers = {}, items = {}, pipeline = {}, cats = {};
+    STATUSES.forEach((s) => { pipeline[s] = 0; });
+    log.forEach((r) => {
+      const key = String(r.o.buyer || '').trim().toLowerCase();
+      const b = buyers[key] || (buyers[key] = { name: String(r.o.buyer || '').trim(), orders: 0, revenue: 0, paid: 0, balance: 0, net: 0 });
+      b.orders++; b.revenue += r.m.final; b.paid += r.m.paid; b.balance += r.m.balance; b.net += r.net;
+      pipeline[r.o.status] = (pipeline[r.o.status] || 0) + 1;
+      r.m.itemList.forEach((it) => {
+        const k = it.name.trim().toLowerCase();
+        const x = items[k] || (items[k] = { name: it.name.trim(), qty: 0, revenue: 0, priced: false });
+        x.qty += it.qty; if (it.price !== null) { x.revenue += it.price; x.priced = true; }
+      });
+    });
+    exps.forEach((e) => { cats[e.category] = (cats[e.category] || 0) + num(e.amount); });
+    const buyerList = Object.values(buyers);
+    return { orders: log.length, buyers: buyerList.length, revenue, collected, outstanding, fee, expenses, net, margin: fee ? net / fee : 0,
+      collectedPct: revenue ? Math.min(collected / revenue, 1) : 0, pipeline,
+      owing: buyerList.filter((b) => b.balance > 0).sort((a, b) => b.balance - a.balance),
+      topBuyers: buyerList.sort((a, b) => b.revenue - a.revenue),
+      topItems: Object.values(items).sort((a, b) => b.qty - a.qty),
+      expCats: Object.keys(cats).map((k) => ({ name: k, amount: cats[k] })).sort((a, b) => b.amount - a.amount) };
   }
 
   /* ---------- Minimal .xlsx writer (zip "store", no dependencies) ---------- */
@@ -209,7 +259,7 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
     const styles = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
       '<numFmts count="2"><numFmt numFmtId="164" formatCode="#,##0.00"/><numFmt numFmtId="165" formatCode="mm/dd/yyyy hh:mm:ss"/></numFmts>' +
       '<fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font></fonts>' +
-      '<fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF1F4E78"/></patternFill></fill></fills>' +
+      '<fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF654023"/></patternFill></fill></fills>' +
       '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>' +
       '<cellXfs count="7"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>' +
       '<xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"><alignment wrapText="1" vertical="center"/></xf>' +
@@ -227,7 +277,7 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
     return zip(files);
   }
 
-  // Builds the four workbook sheets in the same column layout as the Excel file
+  // Builds the workbook sheets (same column layout as the Excel file, plus Order Items and Buyer Summary)
   function exportSheets(state) {
     const H = (a) => a.map((v) => ({ v, s: 1 }));
     const M = (v) => ({ v, s: 2 }), P = (v) => ({ v, s: 5 });
@@ -236,6 +286,15 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
     const log = buildLog(state);
     const logRows = [H(['Order ID', 'Order Date', 'Buyer Name', 'Contact', 'Items Summary', 'Total Qty', 'Item Cost', 'Service Fee', 'Size Fee', 'Weight Fee', 'Shopping / Effort', 'Other Charge', 'Estimated Total', 'Override Amount', 'Final Total', 'Amount Paid', 'Balance', 'Payment Status', 'Order Status', 'Notes', 'Last Updated', 'Trip ID', 'Total Weight (kg)', 'Fee Income', 'Allocated Expenses', 'Net Profit', 'Profit Margin'])];
     log.forEach(({ o, m, alloc, net, margin }) => logRows.push([o.id, D(o.date), o.buyer, o.contact || '', m.summary, m.qty, M(m.itemCost), M(m.service), M(m.sizeFee), M(m.weightFee), M(m.effort), M(m.other), M(m.estimated), m.override === null ? '' : M(m.override), M(m.final), M(m.paid), M(m.balance), m.payStatus, o.status, o.notes || '', DT(o.updated), o.tripId || '', { v: Math.round(m.weightKg * 1000) / 1000, s: 6 }, M(m.feeIncome), M(alloc), M(net), P(margin)]));
+    // One row per item
+    const itRows = [H(['Order ID', 'Order Date', 'Buyer Name', 'Trip ID', 'Item', 'Qty', 'Unit Price', 'Packed Size', 'Weight kg / item', 'Item Cost', 'Service Fee', 'Size Fee', 'Weight Fee', 'Estimated Line Total', 'Override Final Total', 'Final Line Total'])];
+    log.forEach(({ o, m }) => m.itemList.forEach((it) => {
+      const l = it.line;
+      itRows.push([o.id, D(o.date), o.buyer, o.tripId || '', it.name, it.qty, l ? M(l.unit) : '', it.size, l && l.unitWeight !== '' ? { v: l.unitWeight, s: 6 } : '', l ? M(l.itemCost) : '', l ? M(l.service) : '', l ? M(l.sizeFee) : '', l ? M(l.weightFee) : '', l ? M(l.estimated) : '', l && l.override !== null ? M(l.override) : '', l ? M(l.final) : '']);
+    }));
+    const rp = report(state, '');
+    const buyRows = [H(['Buyer', 'Orders', 'Total Billed', 'Total Paid', 'Balance Due', 'Net Profit'])];
+    rp.topBuyers.forEach((b) => buyRows.push([b.name, b.orders, M(b.revenue), M(b.paid), M(b.balance), M(b.net)]));
     const reg = [H(['Trip ID', 'Trip Name', 'Destination', 'Travel Month', 'Status', 'Default Allocation', 'Notes'])];
     state.trips.forEach((t) => reg.push([t.id, t.name, t.dest || '', t.month || '', t.status, t.alloc, t.notes || '']));
     const exp = [H(['Expense ID', 'Expense Date', 'Trip ID', 'Category', 'Description', 'Amount', 'Allocation Method', 'Order ID', 'Notes'])];
@@ -244,13 +303,15 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
     tripSummary(state).forEach((r) => prof.push([r.trip.id, r.trip.name, r.trip.dest || '', r.trip.month || '', r.orders, M(r.revenue), M(r.fee), M(r.expenses), M(r.net), P(r.margin), M(r.avg)]));
     return [
       { name: 'Transaction Log', rows: logRows, widths: [20, 12, 22, 14, 50, 9, 12, 12, 10, 11, 12, 11, 14, 14, 12, 12, 11, 14, 16, 30, 20, 14, 12, 12, 14, 12, 11] },
+      { name: 'Order Items', rows: itRows, widths: [20, 12, 22, 14, 34, 7, 12, 12, 12, 12, 12, 10, 11, 16, 16, 14] },
+      { name: 'Buyer Summary', rows: buyRows, widths: [26, 9, 14, 14, 14, 14] },
       { name: 'Travel Register', rows: reg, widths: [16, 26, 16, 14, 12, 18, 30] },
       { name: 'Travel Expenses', rows: exp, widths: [12, 12, 16, 20, 30, 12, 18, 20, 30] },
       { name: 'Travel Profit', rows: prof, widths: [16, 26, 16, 14, 9, 16, 12, 16, 12, 12, 16] },
     ];
   }
 
-  const api = { SIZES, STATUSES, METHODS, TRIP_METHODS, CATEGORIES, DEFAULT_SETTINGS, num, has, weightFeePer, calcLine, metrics, buildLog, tripSummary, buildXlsx, exportSheets };
+  const api = { SIZES, STATUSES, METHODS, TRIP_METHODS, CATEGORIES, DEFAULT_SETTINGS, num, has, weightFeePer, calcLine, parseSummary, metrics, buildLog, tripSummary, report, buildXlsx, exportSheets };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.Core = api;
 })(typeof self !== 'undefined' ? self : this);
 </script><script>(function () {
@@ -261,6 +322,7 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
   const h = (s) => String(s === null || s === undefined ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const money = (n) => '₱' + (C.num(n)).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const pct = (n) => (n * 100).toFixed(1) + '%';
+  const qtyf = (n) => (Number.isInteger(n) ? String(n) : String(Math.round(n * 100) / 100));
   const pad = (n) => String(n).padStart(2, '0');
   const todayISO = () => { const d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
   const nowISO = () => { const d = new Date(); return todayISO() + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()); };
@@ -285,6 +347,8 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
 
   let tab = 'order';
   const F = { q: '', chip: 'All', trip: '' };
+  const R = { trip: null };
+  const RC = { src: null, back: null, prices: true, pay: false, canvas: null };
 
   /* ---------- ui helpers ---------- */
   function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 2600); }
@@ -293,8 +357,10 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
   const opts = (arr, sel) => arr.map((a) => '<option' + (a === sel ? ' selected' : '') + '>' + h(a) + '</option>').join('');
   const tripOpts = (sel) => '<option value="">— select trip —</option>' + S.trips.map((t) => '<option value="' + h(t.id) + '"' + (t.id === sel ? ' selected' : '') + '>' + h(t.id) + ' · ' + h(t.name) + '</option>').join('');
   const payPill = (s) => '<span class="pill ' + (s === 'Fully Paid' ? 'ok' : s === 'Deposit Paid' ? 'warn' : 'bad') + '">' + s + '</span>';
-  async function saveBlob(blob, name) {
-    try { const file = new File([blob], name, { type: blob.type }); if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: name }); return true; } } catch (e) { if (e && e.name === 'AbortError') return false; }
+  async function saveBlob(blob, name, forceDownload) {
+    if (!forceDownload) {
+      try { const file = new File([blob], name, { type: blob.type }); if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: name }); return true; } } catch (e) { if (e && e.name === 'AbortError') return false; }
+    }
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
     setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 3000); return true;
   }
@@ -305,7 +371,7 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
     document.querySelectorAll('nav button').forEach((b) => b.classList.toggle('on', b.dataset.tab === t));
     $('#bar').style.display = t === 'order' ? 'flex' : 'none';
     document.body.style.paddingBottom = t === 'order' ? '' : 'calc(80px + env(safe-area-inset-bottom))';
-    ({ order: renderOrder, orders: renderOrders, trips: renderTrips, more: renderMore })[t]();
+    ({ order: renderOrder, orders: renderOrders, trips: renderTrips, reports: renderReports, more: renderMore })[t]();
     window.scrollTo(0, 0);
   }
 
@@ -324,7 +390,8 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
       '<div class="card"><h3>Charges &amp; payment</h3><div class="row"><div><label>Shopping / effort (₱)</label><input data-f="effort" type="number" inputmode="decimal" step="any" value="' + h(D.effort) + '"></div><div><label>Other charge (₱)</label><input data-f="other" type="number" inputmode="decimal" step="any" value="' + h(D.other) + '"></div></div>' +
       '<div class="row"><div><label>Amount paid (₱)</label><input data-f="paid" type="number" inputmode="decimal" step="any" value="' + h(D.paid) + '"></div><div><label>Order status</label><select data-f="status">' + opts(C.STATUSES, D.status) + '</select></div></div>' +
       '<label>Notes</label><textarea data-f="notes">' + h(D.notes) + '</textarea></div>' +
-      '<div class="card sum" id="sum"></div>';
+      '<div class="card sum" id="sum"></div>' +
+      '<button class="btn sec block" data-act="draftReceipt" style="margin-bottom:12px">🧾 Buyer receipt / quote (image)</button>';
     $('#bar').innerHTML = '<div><div class="t">Final buyer payment</div><div class="v" id="bFinal">₱0.00</div><div class="t" id="bBal"></div></div><button class="btn" data-act="saveOrder">' + (D.editId ? 'Update order' : 'Submit order') + '</button>';
     recalc();
   }
@@ -389,34 +456,126 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
       '<div class="chips">' + ['All', 'Owing'].concat(C.STATUSES).map((c) => '<button data-chip="' + c + '" class="' + (F.chip === c ? 'on' : '') + '">' + c + '</button>').join('') + '</div>' +
       '<div id="list">' + (rows.length ? rows.map(ordCard).join('') : '<div class="empty">No orders match.<br>Create one in the Order tab' + (S.orders.length ? '.' : ', or restore your data in More.') + '</div>') + '</div>';
   }
+  function itemRows(m) {
+    let x = m.itemList.map((it) => '<div><span>' + qtyf(it.qty) + '× ' + h(it.name) + '</span><span>' + (it.price !== null ? money(it.price) : '') + '</span></div>').join('');
+    if (m.lines.length && m.effort + m.other > 0) x += '<div><span>Shopping / handling</span><span>' + money(m.effort + m.other) + '</span></div>';
+    return x;
+  }
   function ordCard(r) {
     const o = r.o, m = r.m;
-    return '<button class="ord" data-act="openOrder" data-id="' + h(o.id) + '"><div class="h"><span>' + h(o.buyer) + '</span><span>' + money(m.final) + '</span></div><div class="s">' + h(m.summary || '—') + '</div><div class="f"><span class="muted">' + fdate(o.date) + ' · ' + h(o.tripId) + '</span><span>' + payPill(m.payStatus) + ' <span class="pill">' + h(o.status) + '</span></span></div>' + (m.balance > 0 ? '<div class="neg" style="font-size:13px;margin-top:4px">Balance ' + money(m.balance) + '</div>' : '') + '</button>';
+    return '<button class="ord" data-act="openOrder" data-id="' + h(o.id) + '"><div class="h"><span>' + h(o.buyer) + '</span><span>' + money(m.final) + '</span></div><div class="its">' + (itemRows(m) || '<div><span>—</span><span></span></div>') + '</div><div class="f"><span class="muted">' + fdate(o.date) + ' · ' + h(o.tripId) + '</span><span>' + payPill(m.payStatus) + ' <span class="pill">' + h(o.status) + '</span></span></div>' + (m.balance > 0 ? '<div class="neg" style="font-size:13px;margin-top:4px">Balance ' + money(m.balance) + '</div>' : '') + '</button>';
   }
   function openOrder(id) {
     const r = C.buildLog(S).find((x) => x.o.id === id); if (!r) return;
     const o = r.o, m = r.m;
-    const lines = m.lines.length ? '<table class="t"><tr><th>Item</th><th>Qty</th><th>Total</th></tr>' + m.lines.map((l) => '<tr><td>' + h(l.name) + ' <span class="muted">[' + l.size + ']</span></td><td>' + l.qty + '</td><td>' + money(l.final) + '</td></tr>').join('') + '</table>' : '<div class="muted">' + h(m.summary) + '</div><div class="muted" style="margin-top:6px">Imported from Excel – item lines are not editable, but payment and status are.</div>';
+    const lines = '<table class="t"><tr><th>Item</th><th>Qty</th><th>Total</th></tr>' + m.itemList.map((it) => '<tr><td>' + h(it.name) + (it.size ? ' <span class="muted">[' + h(it.size) + ']</span>' : '') + '</td><td>' + qtyf(it.qty) + '</td><td>' + (it.price !== null ? money(it.price) : '—') + '</td></tr>').join('') +
+      (m.lines.length && m.effort + m.other > 0 ? '<tr><td>Shopping / handling</td><td></td><td>' + money(m.effort + m.other) + '</td></tr>' : '') + '<tr><td><b>Total</b></td><td></td><td><b>' + money(m.final) + '</b></td></tr></table>' +
+      (m.lines.length ? '' : '<div class="muted" style="margin-top:6px">Imported from Excel – per-item prices were not recorded, but payment and status are editable.</div>');
     const row = (a, b) => '<div><span>' + a + '</span><span>' + b + '</span></div>';
     openSheet('<h2>' + h(o.buyer) + '<button class="btn sm ghost" data-act="closeSheet">Close</button></h2>' +
       '<div class="card"><div class="muted">' + h(o.id) + ' · ' + fdate(o.date) + ' · ' + h(o.tripId) + '</div>' + (o.contact ? '<div style="margin-top:4px">📞 <a href="tel:' + h(o.contact) + '">' + h(o.contact) + '</a></div>' : '') + '<div style="margin-top:10px">' + lines + '</div></div>' +
+      '<button class="btn block" data-act="orderReceipt" data-id="' + h(o.id) + '" style="margin-bottom:12px">🧾 Buyer receipt (image)</button>' +
       '<div class="card sum">' + row('Item cost', money(m.itemCost)) + row('Fees (service, size, weight, effort, other)', money(m.final - m.itemCost)) + row('Final total', '<b>' + money(m.final) + '</b>') + row('Amount paid', money(m.paid)) + row('Balance', '<b class="' + (m.balance > 0 ? 'neg' : 'pos') + '">' + money(m.balance) + '</b>') + row('Payment', payPill(m.payStatus)) + row('Fee income', money(m.feeIncome)) + row('Allocated expenses', money(r.alloc)) + row('Net profit', money(r.net) + ' (' + pct(r.margin) + ')') + '</div>' +
       '<div class="card"><label>Order status</label><select id="oStatus" data-id="' + h(o.id) + '">' + opts(C.STATUSES, o.status) + '</select>' +
       '<label>Record a payment (₱)</label><div class="row"><input id="oPay" type="number" inputmode="decimal" step="any" placeholder="Amount received"><button class="btn" data-act="addPay" data-id="' + h(o.id) + '" style="flex:none">Add</button></div>' +
       (m.balance > 0 ? '<button class="btn sec block" data-act="payFull" data-id="' + h(o.id) + '" style="margin-top:8px">Mark fully paid (' + money(m.balance) + ')</button>' : '') +
       '<label>Notes</label><textarea id="oNotes" data-id="' + h(o.id) + '">' + h(o.notes) + '</textarea></div>' +
-      '<div class="row"><button class="btn sec" data-act="copyMsg" data-id="' + h(o.id) + '">Copy buyer message</button>' + (o.items ? '<button class="btn sec" data-act="editOrder" data-id="' + h(o.id) + '">Edit order</button>' : '') + '</div>' +
+      '<div class="row"><button class="btn sec" data-act="copyMsg" data-id="' + h(o.id) + '">Copy as text</button>' + (o.items ? '<button class="btn sec" data-act="editOrder" data-id="' + h(o.id) + '">Edit order</button>' : '') + '</div>' +
       '<button class="btn bad block" data-act="delOrder" data-id="' + h(o.id) + '" style="margin-top:10px">Delete order</button>');
   }
   function touch(o) { o.updated = nowISO(); save(); }
   function buyerMessage(id) {
     const o = S.orders.find((x) => x.id === id), m = C.metrics(o, S.settings);
-    let t = 'Hi ' + o.buyer + '! Your Pasabuy order (' + o.id + '):\n';
-    if (m.lines.length) m.lines.forEach((l) => { t += '• ' + l.qty + 'x ' + l.name + ' – ' + money(l.final) + '\n'; }); else t += m.summary + '\n';
-    if (m.effort || m.other) t += '• Other charges – ' + money(m.effort + m.other) + '\n';
-    t += '\nTotal: ' + money(m.final) + '\nPaid: ' + money(m.paid) + '\nBalance: ' + money(m.balance) + '\nStatus: ' + o.status + '\nThank you!';
+    let t = 'Hi ' + o.buyer + '! Your Pasabuy order:\n';
+    m.itemList.forEach((it) => { t += '• ' + qtyf(it.qty) + 'x ' + it.name + (it.price !== null ? ' – ' + money(it.price) : '') + '\n'; });
+    if (m.lines.length && m.effort + m.other > 0) t += '• Shopping / handling – ' + money(m.effort + m.other) + '\n';
+    t += '\nTotal: ' + money(m.final) + '\nPaid: ' + money(m.paid) + '\nBalance: ' + money(m.balance) + '\nThank you!';
     return t;
   }
+
+  /* ---------- BUYER RECEIPT (image) ---------- */
+  let LOGO = null;
+  function logoImg() {
+    return new Promise((res) => { if (LOGO) return res(LOGO); const i = new Image(); i.onload = () => { LOGO = i; res(i); }; i.onerror = () => res(null); i.src = window.LOGO_URI; });
+  }
+  // Only items, the price per item (computed or override) and the total – no cost breakdown.
+  function receiptData(o, opt) {
+    const m = C.metrics(o, S.settings);
+    const showPrices = opt.prices && m.lines.length > 0;
+    const rows = m.itemList.map((it) => ({ label: qtyf(it.qty) + '×  ' + it.name, amount: showPrices && it.price !== null ? it.price : null }));
+    if (showPrices && m.effort + m.other > 0) rows.push({ label: 'Shopping / handling', amount: m.effort + m.other });
+    return { buyer: String(o.buyer || '').trim(), date: o.date || todayISO(), rows, showPrices, total: m.final, paid: m.paid, balance: m.balance, showPay: opt.pay };
+  }
+  async function receiptCanvas(rc) {
+    const logo = await logoImg();
+    const W = 1080, PAD = 84, LH = 52;
+    const FONT = '-apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+    const NAVY = '#1b2234', BROWN = '#654023', MUTE = '#7b6a5b', LINE = '#e3d3bf', TAN = '#d5b79b';
+    const mc = document.createElement('canvas').getContext('2d');
+    const wrap = (ctx, text, maxW) => {
+      const out = []; let cur = '';
+      String(text).split(/\s+/).forEach((w) => {
+        const t = cur ? cur + ' ' + w : w;
+        if (!cur || ctx.measureText(t).width <= maxW) cur = t; else { out.push(cur); cur = w; }
+      });
+      if (cur) out.push(cur); return out;
+    };
+    function paint(ctx, draw) {
+      const T = (txt, x, y, font, color, align) => { if (!draw) return; ctx.font = font; ctx.fillStyle = color; ctx.textAlign = align || 'left'; ctx.fillText(txt, x, y); };
+      const L = (y, color, w) => { if (!draw) return; ctx.strokeStyle = color; ctx.lineWidth = w || 2; ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke(); };
+      let y = PAD;
+      const LS = 250;
+      if (draw && logo) ctx.drawImage(logo, (W - LS) / 2, y, LS, LS);
+      y += LS + 36;
+      y += 32; T('ORDER SUMMARY', W / 2, y, '700 32px ' + FONT, BROWN, 'center'); y += 34;
+      if (rc.buyer) { y += 46; T(rc.buyer, W / 2, y, '700 46px ' + FONT, NAVY, 'center'); }
+      y += 38; T(fdate(rc.date), W / 2, y, '400 30px ' + FONT, MUTE, 'center'); y += 36;
+      L(y, TAN, 3); y += 18;
+      ctx.font = '500 40px ' + FONT;
+      const priceW = rc.showPrices ? Math.max(...rc.rows.map((r) => (r.amount === null ? 0 : (mc.font = '700 40px ' + FONT, mc.measureText(money(r.amount)).width))), 0) : 0;
+      const maxW = W - 2 * PAD - (priceW ? priceW + 36 : 0);
+      rc.rows.forEach((r, idx) => {
+        mc.font = '500 40px ' + FONT;
+        const lines = wrap(mc, r.label, maxW);
+        lines.forEach((ln, i) => T(ln, PAD, y + 50 + i * LH, '500 40px ' + FONT, NAVY, 'left'));
+        if (r.amount !== null) T(money(r.amount), W - PAD, y + 50, '700 40px ' + FONT, NAVY, 'right');
+        y += 24 + lines.length * LH;
+        if (idx < rc.rows.length - 1) { L(y, LINE, 2); y += 0; }
+      });
+      y += 16; L(y, BROWN, 4); y += 28;
+      y += 62; T('TOTAL', PAD, y, '700 44px ' + FONT, NAVY, 'left'); T(money(rc.total), W - PAD, y, '800 62px ' + FONT, BROWN, 'right'); y += 24;
+      if (rc.showPay) {
+        y += 54; T('Amount paid', PAD, y, '400 36px ' + FONT, MUTE, 'left'); T(money(rc.paid), W - PAD, y, '600 36px ' + FONT, NAVY, 'right');
+        y += 54; T('Balance due', PAD, y, '600 38px ' + FONT, NAVY, 'left'); T(money(rc.balance), W - PAD, y, '800 42px ' + FONT, rc.balance > 0 ? '#c62828' : '#12805c', 'right'); y += 12;
+      }
+      y += 70; T('Thank you for shopping with us!', W / 2, y, 'italic 600 38px ' + FONT, BROWN, 'center');
+      y += 52; T('WE TRAVEL. YOU SHOP. WE DELIVER.', W / 2, y, '700 26px ' + FONT, MUTE, 'center');
+      return y + PAD;
+    }
+    const H = Math.ceil(paint(mc, false));
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#fbf2e8'; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = TAN; ctx.lineWidth = 6;
+    ctx.beginPath(); (ctx.roundRect ? ctx.roundRect(24, 24, W - 48, H - 48, 36) : ctx.rect(24, 24, W - 48, H - 48)); ctx.stroke();
+    paint(ctx, true);
+    return cv;
+  }
+  const toBlob = (cv) => new Promise((res) => cv.toBlob(res, 'image/png'));
+  async function showReceipt() {
+    const o = RC.src === 'draft' ? D : S.orders.find((x) => x.id === RC.src); if (!o) return;
+    RC.canvas = await receiptCanvas(receiptData(o, RC));
+    openSheet('<h2>Buyer receipt<button class="btn sm ghost" data-act="' + (RC.back ? 'rcBack' : 'closeSheet') + '">' + (RC.back ? 'Back' : 'Close') + '</button></h2>' +
+      '<img id="rcImg" class="rcpt" alt="Buyer receipt" src="' + RC.canvas.toDataURL('image/png') + '">' +
+      '<div class="card"><label class="chk"><input type="checkbox" id="rcPrices"' + (RC.prices ? ' checked' : '') + '> Show price per item</label><label class="chk"><input type="checkbox" id="rcPay"' + (RC.pay ? ' checked' : '') + '> Show amount paid &amp; balance</label></div>' +
+      '<div class="row"><button class="btn" data-act="rcShare">Share image</button><button class="btn sec" data-act="rcDownload">Download</button></div>' +
+      '<div class="muted" style="text-align:center;margin-top:8px">You can also just screenshot this.</div>');
+  }
+  async function refreshReceipt() {
+    const o = RC.src === 'draft' ? D : S.orders.find((x) => x.id === RC.src); if (!o) return;
+    RC.canvas = await receiptCanvas(receiptData(o, RC)); const im = $('#rcImg'); if (im) im.src = RC.canvas.toDataURL('image/png');
+  }
+  const rcName = () => { const o = RC.src === 'draft' ? D : S.orders.find((x) => x.id === RC.src); return 'EC-Pasabuy-' + String((o && o.buyer) || 'order').trim().replace(/[^\w]+/g, '-').replace(/^-|-$/g, '') + '.png'; };
 
   /* ---------- TRIPS ---------- */
   function renderTrips() {
@@ -453,11 +612,32 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
       '<label>Notes</label><input id="eNotes"></div><button class="btn block" data-act="saveExp" data-trip="' + h(tripId) + '">Save expense</button>');
   }
 
+  /* ---------- REPORTS ---------- */
+  function renderReports() {
+    if (R.trip === null) { const a = S.trips.find((t) => t.status === 'Active'); R.trip = a ? a.id : ''; }
+    const p = C.report(S, R.trip);
+    const K = (l, v, sub, cls) => '<div class="kpi"><small>' + l + '</small><div class="' + (cls || '') + '">' + v + '</div>' + (sub ? '<em>' + sub + '</em>' : '') + '</div>';
+    const maxPipe = Math.max(1, ...Object.values(p.pipeline));
+    const rr = (n, sub, r, act) => '<' + (act ? 'button ' + act : 'div') + ' class="rrow"><span><span class="n">' + h(n) + '</span>' + (sub ? '<div class="muted">' + sub + '</div>' : '') + '</span><span class="r">' + r + '</span></' + (act ? 'button' : 'div') + '>';
+    $('#view').innerHTML =
+      '<select id="rt" style="margin-bottom:12px"><option value="">All trips</option>' + S.trips.map((t) => '<option value="' + h(t.id) + '"' + (t.id === R.trip ? ' selected' : '') + '>' + h(t.name) + '</option>').join('') + '</select>' +
+      (p.orders === 0 ? '<div class="empty">No orders for this selection yet.</div>' :
+        '<div class="kpis">' + K('Orders', p.orders, p.buyers + ' buyer' + (p.buyers === 1 ? '' : 's')) + K('Customer revenue', money(p.revenue), 'Total billed') + K('Collected', money(p.collected), pct(p.collectedPct) + ' of billed', 'pos') + K('Outstanding', money(p.outstanding), p.owing.length + ' buyer' + (p.owing.length === 1 ? '' : 's') + ' owing', p.outstanding > 0 ? 'neg' : 'pos') +
+        K('Fee income', money(p.fee), 'Revenue − item cost') + K('Expenses', money(p.expenses)) + K('Net profit', money(p.net), pct(p.margin) + ' margin', p.net < 0 ? 'neg' : 'pos') + K('Avg profit / order', money(p.net / p.orders)) + '</div>' +
+        '<div class="card"><h3>Payments collected</h3><div class="meter"><i style="width:' + (p.collectedPct * 100).toFixed(1) + '%"></i></div><div class="muted" style="margin-top:6px">' + money(p.collected) + ' of ' + money(p.revenue) + '</div></div>' +
+        '<div class="card"><h3>Order progress</h3>' + C.STATUSES.map((s) => '<div class="pipe"><span>' + s + '</span><div class="meter"><i style="width:' + (p.pipeline[s] / maxPipe * 100) + '%"></i></div><b>' + p.pipeline[s] + '</b></div>').join('') + '</div>' +
+        '<div class="card"><h3>Who still owes</h3>' + (p.owing.length ? p.owing.map((b) => rr(b.name, b.orders + ' order' + (b.orders === 1 ? '' : 's'), '<b class="neg">' + money(b.balance) + '</b>', 'data-act="owe" data-buyer="' + h(b.name) + '"')).join('') : '<div class="muted">Everyone is fully paid. 🎉</div>') + '</div>' +
+        '<div class="card"><h3>Top buyers</h3>' + p.topBuyers.slice(0, 5).map((b) => rr(b.name, b.orders + ' order' + (b.orders === 1 ? '' : 's') + ' · profit ' + money(b.net), '<b>' + money(b.revenue) + '</b>')).join('') + '</div>' +
+        '<div class="card"><h3>Most requested items</h3>' + p.topItems.slice(0, 8).map((i) => rr(i.name, i.priced ? 'Billed ' + money(i.revenue) : '', '<b>' + qtyf(i.qty) + ' pcs</b>')).join('') + '</div>' +
+        (p.expCats.length ? '<div class="card"><h3>Expenses by category</h3>' + p.expCats.map((e) => rr(e.name, '', '<b>' + money(e.amount) + '</b>')).join('') + '</div>' : '') +
+        '<button class="btn sec block" data-act="xlsx">Export all data to Excel</button>');
+  }
+
   /* ---------- MORE ---------- */
   function renderMore() {
     const lb = +localStorage.getItem(BKEY);
     $('#view').innerHTML =
-      '<div class="card"><h3>Export &amp; backup</h3><p class="muted" style="margin-top:0">Everything is stored on this phone. Export an Excel copy (same columns as your workbook) or a backup file regularly.</p>' +
+      '<div class="card"><h3>Export &amp; backup</h3><p class="muted" style="margin-top:0">Everything is stored on this phone. The Excel export has your Transaction Log, one row per item (Order Items), a Buyer Summary and your trip sheets.</p>' +
       '<button class="btn block" data-act="xlsx">Export to Excel (.xlsx)</button><div class="row" style="margin-top:8px"><button class="btn sec" data-act="backup">Backup (.json)</button><button class="btn sec" data-act="restore">Restore / import</button></div>' +
       '<input type="file" id="file" accept=".json,application/json" style="display:none"><div class="muted" style="margin-top:8px">Last backup/export: ' + (lb ? new Date(lb).toLocaleString() : 'never') + '</div></div>' +
       '<div class="card"><h3>Pricing setting</h3><label>Service fee (% of item cost)</label><input id="rate" type="number" inputmode="decimal" step="any" value="' + (S.settings.serviceRate * 100) + '"></div>' +
@@ -465,7 +645,7 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
       '<table class="t" style="margin-top:10px"><tr><th>Weight / item</th><th>Fee / item</th></tr><tr><td>0–500 g</td><td>Free</td></tr><tr><td>500 g–1 kg</td><td>₱100</td></tr><tr><td>1–2 kg</td><td>₱200</td></tr><tr><td>2–3 kg</td><td>₱300</td></tr><tr><td>3 kg and above</td><td>Inquire</td></tr></table>' +
       '<p class="muted">Total = item cost + service fee + size fee + weight fee, plus any shopping/effort and other charge. Final prices are confirmed after purchase.</p></div>' +
       '<div class="card"><h3>Danger zone</h3><button class="btn bad block" data-act="wipe">Delete all data on this device</button></div>' +
-      '<div class="muted" style="text-align:center">Pasabuy Tracker · works offline once installed</div>';
+      '<div class="muted" style="text-align:center">EC Pasabuy PH · works offline once installed</div>';
   }
   function stamp() { localStorage.setItem(BKEY, Date.now()); }
   function doImport(data, mode) {
@@ -486,6 +666,7 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
     if (t.id === 'q') { F.q = t.value; const p = t.selectionStart; renderOrders(); const q = $('#q'); q.focus(); q.setSelectionRange(p, p); }
     if (t.id === 'oNotes') { const o = S.orders.find((x) => x.id === t.dataset.id); o.notes = t.value; touch(o); }
     if (t.id === 'rate') { const v = parseFloat(t.value); if (isFinite(v) && v >= 0) { S.settings.serviceRate = v / 100; save(); } }
+    if (t.id === 'tId') t.dataset.touched = 1;
   });
   document.addEventListener('change', (e) => {
     const t = e.target;
@@ -495,6 +676,9 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
     }
     if (t.dataset && t.dataset.f === 'tripId') { saveDraft(); }
     if (t.id === 'ft') { F.trip = t.value; renderOrders(); }
+    if (t.id === 'rt') { R.trip = t.value; renderReports(); }
+    if (t.id === 'rcPrices') { RC.prices = t.checked; refreshReceipt(); }
+    if (t.id === 'rcPay') { RC.pay = t.checked; refreshReceipt(); }
     if (t.id === 'oStatus') { const o = S.orders.find((x) => x.id === t.dataset.id); o.status = t.value; touch(o); toast('Status updated.'); }
     if (t.id === 'eMeth') $('#eOrdWrap').style.display = t.value === 'Direct Order' ? 'block' : 'none';
     if (t.id === 'tDest' || t.id === 'tMonth') { const idEl = $('#tId'); if (idEl && !idEl.readOnly && !idEl.dataset.touched) { const d = $('#tDest').value.trim(), m = $('#tMonth').value; if (d && m) { idEl.value = d.slice(0, 3).toUpperCase() + '-' + m; $('#tName').value = d + ' – ' + fmonth(m); } } }
@@ -528,6 +712,11 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
     if (a === 'copyMsg') { const txt = buyerMessage(id); try { await navigator.clipboard.writeText(txt); toast('Message copied.'); } catch (err) { prompt('Copy this message:', txt); } return; }
     if (a === 'editOrder') { const o = S.orders.find((x) => x.id === id); D = { editId: o.id, tripId: o.tripId, buyer: o.buyer, contact: o.contact || '', date: o.date, items: o.items.map((i) => Object.assign({}, i)), effort: o.effort, other: o.other, paid: o.paid, status: o.status, notes: o.notes || '' }; saveDraft(); closeSheet(); return go('order'); }
     if (a === 'delOrder') { if (confirm('Delete this order permanently?')) { S.orders = S.orders.filter((x) => x.id !== id); save(); closeSheet(); toast('Order deleted.'); renderOrders(); } return; }
+    if (a === 'orderReceipt') { RC.src = id; RC.back = id; RC.prices = true; RC.pay = false; return showReceipt(); }
+    if (a === 'draftReceipt') { if (!C.metrics(D, S.settings).lines.length) return toast('Add at least one item with a name and price.'); RC.src = 'draft'; RC.back = null; RC.prices = true; RC.pay = false; return showReceipt(); }
+    if (a === 'rcBack') return openOrder(RC.back);
+    if (a === 'rcShare' || a === 'rcDownload') { const blob = await toBlob(RC.canvas); await saveBlob(blob, rcName(), a === 'rcDownload'); return; }
+    if (a === 'owe') { F.q = b.dataset.buyer; F.chip = 'Owing'; F.trip = R.trip || ''; return go('orders'); }
     if (a === 'addTrip') return tripForm();
     if (a === 'editTrip') return tripForm(S.trips.find((t) => t.id === id));
     if (a === 'openTrip') return openTrip(id);
@@ -547,12 +736,11 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th
       save(); toast('Expense added.'); renderTrips(); return openTrip(b.dataset.trip);
     }
     if (a === 'delExp') { if (confirm('Delete this expense?')) { S.expenses = S.expenses.filter((x) => x.id !== id); save(); renderTrips(); openTrip(b.dataset.trip); } return; }
-    if (a === 'xlsx') { const blob = C.buildXlsx(C.exportSheets(S)); if (await saveBlob(blob, 'Pasabuy-' + todayISO() + '.xlsx')) { stamp(); renderMore(); } return; }
+    if (a === 'xlsx') { const blob = C.buildXlsx(C.exportSheets(S)); if (await saveBlob(blob, 'Pasabuy-' + todayISO() + '.xlsx')) { stamp(); if (tab === 'more') renderMore(); } return; }
     if (a === 'backup') { const blob = new Blob([JSON.stringify({ app: 'pasabuy', version: 1, exported: nowISO(), settings: S.settings, trips: S.trips, expenses: S.expenses, orders: S.orders }, null, 1)], { type: 'application/json' }); if (await saveBlob(blob, 'pasabuy-backup-' + todayISO() + '.json')) { stamp(); renderMore(); } return; }
     if (a === 'restore') return $('#file').click();
     if (a === 'wipe') { if (confirm('Delete ALL trips, orders and expenses on this device?') && confirm('This cannot be undone. Really delete?')) { S = { settings: Object.assign({}, C.DEFAULT_SETTINGS), trips: [], expenses: [], orders: [] }; save(); D = null; D = newDraft(); saveDraft(); toast('All data deleted.'); renderMore(); } return; }
   });
-  document.addEventListener('input', (e) => { if (e.target.id === 'tId') e.target.dataset.touched = 1; });
 
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
