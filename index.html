@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1f6feb"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pasabuy"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
+<title>Pasabuy Tracker</title><style>:root{--bg:#f3f5f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--pri:#1f6feb;--pri2:#e8f0fe;--ok:#12805c;--okbg:#e3f6ee;--warn:#b25e00;--warnbg:#fff1dc;--bad:#c62828;--badbg:#fde7e7;--line:#e2e6ee;--r:14px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+body{padding-bottom:calc(150px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:5;background:var(--pri);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;display:flex;align-items:center;justify-content:space-between}
+header h1{margin:0;font-size:18px}header small{opacity:.85}
+main{padding:12px;max-width:720px;margin:0 auto}
+.card{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.card h3{margin:0 0 10px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+label{display:block;font-size:12px;color:var(--mute);margin:8px 0 3px}
+input,select,textarea{width:100%;font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);min-height:44px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--pri);border-color:transparent}
+textarea{min-height:60px;resize:vertical}
+.row{display:flex;gap:8px}.row>*{flex:1;min-width:0}
+.btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;font:inherit;font-weight:600;background:var(--pri);color:#fff;min-height:46px;cursor:pointer}
+.btn.sec{background:var(--pri2);color:var(--pri)}.btn.bad{background:var(--badbg);color:var(--bad)}.btn.ghost{background:transparent;color:var(--pri)}
+.btn.sm{padding:7px 12px;min-height:36px;font-size:14px}.btn.block{width:100%}
+.item{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px;background:#fbfcfe}
+.item .calc{font-size:12px;color:var(--mute);margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 10px}
+.item .calc b{color:var(--ink)}
+.item .top{display:flex;gap:8px;align-items:flex-end}.item .top>div:first-child{flex:1}
+.x{background:none;border:0;font-size:22px;color:var(--bad);padding:8px;min-height:44px}
+.sum div{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--line)}
+.sum div:last-child{border:0}.sum .big{font-size:20px;font-weight:700;color:var(--pri)}
+.bar{position:fixed;left:0;right:0;bottom:calc(58px + env(safe-area-inset-bottom));z-index:6;background:#fff;border-top:1px solid var(--line);padding:8px 12px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.bar .t{font-size:12px;color:var(--mute)}.bar .v{font-size:19px;font-weight:700}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:7;background:#fff;border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;border:0;background:none;padding:8px 0 6px;font:inherit;font-size:11px;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:2px;min-height:58px}
+nav button span{font-size:21px;line-height:1}nav button.on{color:var(--pri);font-weight:700}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;background:var(--pri2);color:var(--pri);white-space:nowrap}
+.pill.ok{background:var(--okbg);color:var(--ok)}.pill.warn{background:var(--warnbg);color:var(--warn)}.pill.bad{background:var(--badbg);color:var(--bad)}
+.ord{display:block;width:100%;text-align:left;border:0;background:var(--card);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.06);font:inherit;color:inherit}
+.ord .h{display:flex;justify-content:space-between;gap:8px;font-weight:700}
+.ord .s{font-size:13px;color:var(--mute);margin:4px 0 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ord .f{display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px}.chips button{flex:none;border:1px solid var(--line);background:#fff;border-radius:99px;padding:7px 13px;font:inherit;font-size:13px;min-height:36px}
+.chips button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.kpi{background:var(--card);border-radius:var(--r);padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,.06)}.kpi small{color:var(--mute);font-size:12px}.kpi div{font-size:18px;font-weight:700}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:20;display:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-height:92vh;overflow:auto;background:var(--bg);border-radius:20px 20px 0 0;padding:14px 12px calc(20px + env(safe-area-inset-bottom));z-index:21;display:none;max-width:720px;margin:0 auto}
+.sheet h2{margin:2px 4px 10px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
+.muted{color:var(--mute);font-size:13px}.neg{color:var(--bad)}.pos{color:var(--ok)}
+table.t{width:100%;border-collapse:collapse;font-size:14px}table.t td,table.t th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}table.t td:last-child,table.t th:last-child{text-align:right}
+.empty{text-align:center;color:var(--mute);padding:30px 10px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(140px + env(safe-area-inset-bottom));background:#1c2430;color:#fff;padding:10px 16px;border-radius:99px;z-index:50;font-size:14px;opacity:0;transition:.25s;pointer-events:none;max-width:90%;text-align:center}
+.toast.on{opacity:1}
+.warnline{font-size:12px;color:var(--warn);margin-top:6px}
+</style></head>
+<body>
+<header><h1>EC Pasabuy PH</h1><small>Cost calculator &amp; order log</small></header>
+<main id="view"></main>
+<div class="bar" id="bar"></div>
+<nav><button data-tab="order"><span>🧮</span>Order</button><button data-tab="orders"><span>📋</span>Orders</button><button data-tab="trips"><span>✈️</span>Trips</button><button data-tab="more"><span>⚙️</span>More</button></nav>
+<div class="sheet-bg" id="sbg"></div><div class="sheet" id="sheet"></div><div class="toast" id="toast"></div>
+<script>/* Pasabuy core logic – mirrors the rules in the Excel workbook */
+(function (root) {
+  'use strict';
+  const SIZES = { 'Small': 0, 'Medium': 100, 'Large': 250, 'Extra Large': 500 };
+  const STATUSES = ['Order Confirmed', 'Item Bought', 'Item Delivered', 'Customer Paid'];
+  const METHODS = ['Direct Order', 'Equal by Order', 'By Weight', 'By Revenue'];
+  const TRIP_METHODS = ['Equal by Order', 'By Weight', 'By Revenue'];
+  const CATEGORIES = ['Luggage Fee', 'Excess Baggage', 'Local Transportation', 'Packaging', 'Courier or Delivery', 'Parking or Tolls', 'Other'];
+  const DEFAULT_SETTINGS = { serviceRate: 0.2 };
+
+  const num = (v) => { const n = parseFloat(v); return isFinite(n) ? n : 0; };
+  const has = (v) => v !== '' && v !== null && v !== undefined && !(typeof v === 'number' && isNaN(v));
+
+  // Same tiers as the workbook: <=0.5kg free, <=1kg 100, <=2kg 200, <=3kg 300, above = inquire (0 in sheet)
+  function weightFeePer(w) {
+    if (!has(w)) return 0;
+    w = num(w);
+    if (w <= 0.5) return 0;
+    if (w <= 1) return 100;
+    if (w <= 2) return 200;
+    if (w <= 3) return 300;
+    return 0;
+  }
+
+  function calcLine(it, settings) {
+    const rate = settings && has(settings.serviceRate) ? settings.serviceRate : 0.2;
+    if (!String(it.name || '').trim() || !has(it.price)) return null;
+    const qty = num(it.qty), itemCost = qty * num(it.price);
+    const service = itemCost * rate;
+    const sizeFee = qty * (SIZES[it.size] || 0);
+    const weightFee = qty * weightFeePer(it.weight);
+    const estimated = itemCost + service + sizeFee + weightFee;
+    const hasOverride = has(it.override);
+    const final = hasOverride ? num(it.override) : estimated;
+    return { name: String(it.name).trim(), qty, size: it.size || 'Small', itemCost, service, sizeFee, weightFee, estimated,
+      override: hasOverride ? num(it.override) : null, final, weightKg: qty * num(it.weight), inquire: num(it.weight) > 3 };
+  }
+
+  // Returns the order metrics used everywhere (calculator, log, reports)
+  function metrics(o, settings) {
+    const effort = num(o.effort), other = num(o.other), paid = num(o.paid);
+    let m;
+    if (o.items && o.items.length) {
+      const lines = o.items.map((i) => calcLine(i, settings)).filter(Boolean);
+      const sum = (k) => lines.reduce((a, l) => a + l[k], 0);
+      const ov = lines.filter((l) => l.override !== null);
+      m = { lines, itemCost: sum('itemCost'), service: sum('service'), sizeFee: sum('sizeFee'), weightFee: sum('weightFee'),
+        estimated: sum('estimated') + effort + other, override: ov.length ? ov.reduce((a, l) => a + l.override, 0) : null,
+        final: sum('final') + effort + other, qty: sum('qty'), weightKg: sum('weightKg'),
+        summary: lines.map((l) => l.qty + 'x ' + l.name + ' [' + l.size + ']').join('; '), inquire: lines.some((l) => l.inquire) };
+    } else {
+      const s = o.snap || {};
+      m = { lines: [], itemCost: num(s.itemCost), service: num(s.service), sizeFee: num(s.sizeFee), weightFee: num(s.weightFee),
+        estimated: num(s.estimated), override: has(s.override) ? num(s.override) : null, final: num(s.final), qty: num(s.qty),
+        weightKg: num(s.weightKg), summary: s.summary || '', inquire: false };
+    }
+    m.effort = effort; m.other = other; m.paid = paid;
+    m.balance = Math.max(m.final - paid, 0);
+    m.payStatus = m.balance <= 0 ? 'Fully Paid' : paid > 0 ? 'Deposit Paid' : 'Unpaid';
+    m.feeIncome = m.final - m.itemCost;
+    return m;
+  }
+
+  function allocatedExpenses(o, ctx) {
+    // ctx: { orders, expenses, mmap }  (mmap: id -> metrics)
+    if (!o.tripId) return 0;
+    const tripOrders = ctx.orders.filter((x) => x.tripId === o.tripId);
+    const exp = ctx.expenses.filter((e) => e.tripId === o.tripId);
+    const tot = (method) => exp.filter((e) => e.method === method).reduce((a, e) => a + num(e.amount), 0);
+    const direct = exp.filter((e) => e.method === 'Direct Order' && e.orderId === o.id).reduce((a, e) => a + num(e.amount), 0);
+    const me = ctx.mmap[o.id];
+    const sumW = tripOrders.reduce((a, x) => a + ctx.mmap[x.id].weightKg, 0);
+    const sumR = tripOrders.reduce((a, x) => a + ctx.mmap[x.id].final, 0);
+    const equal = tripOrders.length ? tot('Equal by Order') / tripOrders.length : 0;
+    const byW = sumW ? tot('By Weight') * me.weightKg / sumW : 0;
+    const byR = sumR ? tot('By Revenue') * me.final / sumR : 0;
+    return direct + equal + byW + byR;
+  }
+
+  function buildLog(state) {
+    const mmap = {};
+    state.orders.forEach((o) => { mmap[o.id] = metrics(o, state.settings); });
+    const ctx = { orders: state.orders, expenses: state.expenses, mmap };
+    return state.orders.map((o) => {
+      const m = mmap[o.id];
+      const alloc = allocatedExpenses(o, ctx);
+      const net = m.feeIncome - alloc;
+      return { o, m, alloc, net, margin: m.feeIncome ? net / m.feeIncome : 0 };
+    });
+  }
+
+  function tripSummary(state) {
+    const log = buildLog(state);
+    return state.trips.map((t) => {
+      const rows = log.filter((r) => r.o.tripId === t.id);
+      const revenue = rows.reduce((a, r) => a + r.m.final, 0);
+      const fee = rows.reduce((a, r) => a + r.m.feeIncome, 0);
+      const exp = state.expenses.filter((e) => e.tripId === t.id).reduce((a, e) => a + num(e.amount), 0);
+      const outstanding = rows.reduce((a, r) => a + r.m.balance, 0);
+      const net = fee - exp;
+      return { trip: t, orders: rows.length, revenue, fee, expenses: exp, net, margin: fee ? net / fee : 0,
+        avg: rows.length ? net / rows.length : 0, outstanding };
+    });
+  }
+
+  /* ---------- Minimal .xlsx writer (zip "store", no dependencies) ---------- */
+  const crcTable = (() => { const t = []; for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  const crc32 = (b) => { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = crcTable[(c ^ b[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+  const enc = (s) => new TextEncoder().encode(s);
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '');
+
+  function zip(files) {
+    const parts = [], central = []; let offset = 0;
+    const u16 = (n) => [n & 255, (n >> 8) & 255], u32 = (n) => [n & 255, (n >> 8) & 255, (n >> 16) & 255, (n >>> 24) & 255];
+    files.forEach((f) => {
+      const name = enc(f.name), data = typeof f.data === 'string' ? enc(f.data) : f.data, crc = crc32(data);
+      const lh = new Uint8Array([0x50, 0x4b, 3, 4, 20, 0, 0, 0, 0, 0, 0, 0, 0x21, 0, ...u32(crc), ...u32(data.length), ...u32(data.length), ...u16(name.length), 0, 0]);
+      parts.push(lh, name, data);
+      central.push(new Uint8Array([0x50, 0x4b, 1, 2, 20, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0x21, 0, ...u32(crc), ...u32(data.length), ...u32(data.length), ...u16(name.length), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...u32(offset)]), name);
+      offset += lh.length + name.length + data.length;
+    });
+    const cSize = central.reduce((a, p) => a + p.length, 0);
+    const end = new Uint8Array([0x50, 0x4b, 5, 6, 0, 0, 0, 0, ...u16(files.length), ...u16(files.length), ...u32(cSize), ...u32(offset), 0, 0]);
+    return new Blob([...parts, ...central, end], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  }
+
+  const colName = (i) => { let s = ''; i++; while (i > 0) { const m = (i - 1) % 26; s = String.fromCharCode(65 + m) + s; i = Math.floor((i - 1) / 26); } return s; };
+  const serial = (iso) => { const d = new Date(iso); if (isNaN(d)) return null; return (d.getTime() - d.getTimezoneOffset() * 60000) / 86400000 + 25569; };
+  // Style ids: 0 text, 1 header, 2 money, 3 date, 4 datetime, 5 percent, 6 number(0.##)
+  function sheetXml(rows, widths) {
+    let x = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>';
+    x += '<cols>' + widths.map((w, i) => '<col min="' + (i + 1) + '" max="' + (i + 1) + '" width="' + w + '" customWidth="1"/>').join('') + '</cols><sheetData>';
+    rows.forEach((r, ri) => {
+      x += '<row r="' + (ri + 1) + '">';
+      r.forEach((c, ci) => {
+        if (c === null || c === undefined || c === '') return;
+        const ref = colName(ci) + (ri + 1);
+        const cell = typeof c === 'object' ? c : { v: c };
+        const s = cell.s || 0;
+        if (typeof cell.v === 'number') x += '<c r="' + ref + '" s="' + s + '"><v>' + cell.v + '</v></c>';
+        else x += '<c r="' + ref + '" s="' + s + '" t="inlineStr"><is><t xml:space="preserve">' + esc(cell.v) + '</t></is></c>';
+      });
+      x += '</row>';
+    });
+    return x + '</sheetData></worksheet>';
+  }
+
+  function buildXlsx(sheets) {
+    const styles = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+      '<numFmts count="2"><numFmt numFmtId="164" formatCode="#,##0.00"/><numFmt numFmtId="165" formatCode="mm/dd/yyyy hh:mm:ss"/></numFmts>' +
+      '<fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font></fonts>' +
+      '<fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF1F4E78"/></patternFill></fill></fills>' +
+      '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>' +
+      '<cellXfs count="7"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>' +
+      '<xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"><alignment wrapText="1" vertical="center"/></xf>' +
+      '<xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="14" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>' +
+      '<xf numFmtId="165" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="10" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>' +
+      '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs></styleSheet>';
+    const files = [
+      { name: '[Content_Types].xml', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>' + sheets.map((s, i) => '<Override PartName="/xl/worksheets/sheet' + (i + 1) + '.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>').join('') + '</Types>' },
+      { name: '_rels/.rels', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>' },
+      { name: 'xl/workbook.xml', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>' + sheets.map((s, i) => '<sheet name="' + esc(s.name) + '" sheetId="' + (i + 1) + '" r:id="rId' + (i + 1) + '"/>').join('') + '</sheets></workbook>' },
+      { name: 'xl/_rels/workbook.xml.rels', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + sheets.map((s, i) => '<Relationship Id="rId' + (i + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet' + (i + 1) + '.xml"/>').join('') + '<Relationship Id="rId' + (sheets.length + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>' },
+      { name: 'xl/styles.xml', data: styles },
+    ];
+    sheets.forEach((s, i) => files.push({ name: 'xl/worksheets/sheet' + (i + 1) + '.xml', data: sheetXml(s.rows, s.widths) }));
+    return zip(files);
+  }
+
+  // Builds the four workbook sheets in the same column layout as the Excel file
+  function exportSheets(state) {
+    const H = (a) => a.map((v) => ({ v, s: 1 }));
+    const M = (v) => ({ v, s: 2 }), P = (v) => ({ v, s: 5 });
+    const D = (iso) => { const s = iso ? serial(iso) : null; return s === null ? '' : { v: s, s: 3 }; };
+    const DT = (iso) => { const s = iso ? serial(iso) : null; return s === null ? '' : { v: s, s: 4 }; };
+    const log = buildLog(state);
+    const logRows = [H(['Order ID', 'Order Date', 'Buyer Name', 'Contact', 'Items Summary', 'Total Qty', 'Item Cost', 'Service Fee', 'Size Fee', 'Weight Fee', 'Shopping / Effort', 'Other Charge', 'Estimated Total', 'Override Amount', 'Final Total', 'Amount Paid', 'Balance', 'Payment Status', 'Order Status', 'Notes', 'Last Updated', 'Trip ID', 'Total Weight (kg)', 'Fee Income', 'Allocated Expenses', 'Net Profit', 'Profit Margin'])];
+    log.forEach(({ o, m, alloc, net, margin }) => logRows.push([o.id, D(o.date), o.buyer, o.contact || '', m.summary, m.qty, M(m.itemCost), M(m.service), M(m.sizeFee), M(m.weightFee), M(m.effort), M(m.other), M(m.estimated), m.override === null ? '' : M(m.override), M(m.final), M(m.paid), M(m.balance), m.payStatus, o.status, o.notes || '', DT(o.updated), o.tripId || '', { v: Math.round(m.weightKg * 1000) / 1000, s: 6 }, M(m.feeIncome), M(alloc), M(net), P(margin)]));
+    const reg = [H(['Trip ID', 'Trip Name', 'Destination', 'Travel Month', 'Status', 'Default Allocation', 'Notes'])];
+    state.trips.forEach((t) => reg.push([t.id, t.name, t.dest || '', t.month || '', t.status, t.alloc, t.notes || '']));
+    const exp = [H(['Expense ID', 'Expense Date', 'Trip ID', 'Category', 'Description', 'Amount', 'Allocation Method', 'Order ID', 'Notes'])];
+    state.expenses.forEach((e) => exp.push([e.id, D(e.date), e.tripId, e.category, e.desc || '', M(num(e.amount)), e.method, e.orderId || '', e.notes || '']));
+    const prof = [H(['Trip ID', 'Trip Name', 'Destination', 'Travel Month', 'Orders', 'Customer Revenue', 'Fee Income', 'Business Expenses', 'Net Profit', 'Profit Margin', 'Avg Profit / Order'])];
+    tripSummary(state).forEach((r) => prof.push([r.trip.id, r.trip.name, r.trip.dest || '', r.trip.month || '', r.orders, M(r.revenue), M(r.fee), M(r.expenses), M(r.net), P(r.margin), M(r.avg)]));
+    return [
+      { name: 'Transaction Log', rows: logRows, widths: [20, 12, 22, 14, 50, 9, 12, 12, 10, 11, 12, 11, 14, 14, 12, 12, 11, 14, 16, 30, 20, 14, 12, 12, 14, 12, 11] },
+      { name: 'Travel Register', rows: reg, widths: [16, 26, 16, 14, 12, 18, 30] },
+      { name: 'Travel Expenses', rows: exp, widths: [12, 12, 16, 20, 30, 12, 18, 20, 30] },
+      { name: 'Travel Profit', rows: prof, widths: [16, 26, 16, 14, 9, 16, 12, 16, 12, 12, 16] },
+    ];
+  }
+
+  const api = { SIZES, STATUSES, METHODS, TRIP_METHODS, CATEGORIES, DEFAULT_SETTINGS, num, has, weightFeePer, calcLine, metrics, buildLog, tripSummary, buildXlsx, exportSheets };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.Core = api;
+})(typeof self !== 'undefined' ? self : this);
+</script><script>(function () {
+  'use strict';
+  const C = window.Core;
+  const KEY = 'pasabuy.v1', DKEY = 'pasabuy.draft', BKEY = 'pasabuy.lastBackup';
+  const $ = (s, r) => (r || document).querySelector(s);
+  const h = (s) => String(s === null || s === undefined ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const money = (n) => '₱' + (C.num(n)).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const pct = (n) => (n * 100).toFixed(1) + '%';
+  const pad = (n) => String(n).padStart(2, '0');
+  const todayISO = () => { const d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+  const nowISO = () => { const d = new Date(); return todayISO() + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()); };
+  const fdate = (iso) => { if (!iso) return '—'; const d = new Date(String(iso).slice(0, 10) + 'T00:00:00'); return isNaN(d) ? iso : d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); };
+  const fmonth = (m) => { if (!m) return ''; const d = new Date(m + '-01T00:00:00'); return isNaN(d) ? m : d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }); };
+
+  /* ---------- state ---------- */
+  let S = load();
+  function load() {
+    try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.orders) return Object.assign({ settings: Object.assign({}, C.DEFAULT_SETTINGS), trips: [], expenses: [], orders: [] }, s); } catch (e) {}
+    return { settings: Object.assign({}, C.DEFAULT_SETTINGS), trips: [], expenses: [], orders: [] };
+  }
+  function save() { localStorage.setItem(KEY, JSON.stringify(S)); }
+  const blankItem = () => ({ name: '', qty: 1, price: '', size: 'Small', weight: '', override: '' });
+  function newDraft() {
+    const act = S.trips.find((t) => t.status === 'Active') || S.trips[0];
+    return { editId: null, tripId: (D && D.tripId) || (act ? act.id : ''), buyer: '', contact: '', date: todayISO(), items: [blankItem()], effort: 0, other: 0, paid: 0, status: 'Order Confirmed', notes: '' };
+  }
+  let D; try { D = JSON.parse(localStorage.getItem(DKEY)); } catch (e) { D = null; }
+  if (!D || !D.items) D = newDraft();
+  const saveDraft = () => localStorage.setItem(DKEY, JSON.stringify(D));
+
+  let tab = 'order';
+  const F = { q: '', chip: 'All', trip: '' };
+
+  /* ---------- ui helpers ---------- */
+  function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 2600); }
+  function openSheet(html) { $('#sheet').innerHTML = html; $('#sheet').style.display = 'block'; $('#sbg').style.display = 'block'; $('#sheet').scrollTop = 0; }
+  function closeSheet() { $('#sheet').style.display = 'none'; $('#sbg').style.display = 'none'; $('#sheet').innerHTML = ''; }
+  const opts = (arr, sel) => arr.map((a) => '<option' + (a === sel ? ' selected' : '') + '>' + h(a) + '</option>').join('');
+  const tripOpts = (sel) => '<option value="">— select trip —</option>' + S.trips.map((t) => '<option value="' + h(t.id) + '"' + (t.id === sel ? ' selected' : '') + '>' + h(t.id) + ' · ' + h(t.name) + '</option>').join('');
+  const payPill = (s) => '<span class="pill ' + (s === 'Fully Paid' ? 'ok' : s === 'Deposit Paid' ? 'warn' : 'bad') + '">' + s + '</span>';
+  async function saveBlob(blob, name) {
+    try { const file = new File([blob], name, { type: blob.type }); if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: name }); return true; } } catch (e) { if (e && e.name === 'AbortError') return false; }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 3000); return true;
+  }
+
+  /* ---------- tabs ---------- */
+  function go(t) {
+    tab = t; closeSheet();
+    document.querySelectorAll('nav button').forEach((b) => b.classList.toggle('on', b.dataset.tab === t));
+    $('#bar').style.display = t === 'order' ? 'flex' : 'none';
+    document.body.style.paddingBottom = t === 'order' ? '' : 'calc(80px + env(safe-area-inset-bottom))';
+    ({ order: renderOrder, orders: renderOrders, trips: renderTrips, more: renderMore })[t]();
+    window.scrollTo(0, 0);
+  }
+
+  /* ---------- ORDER (calculator) ---------- */
+  function renderOrder() {
+    if (!S.trips.some((t) => t.id === D.tripId)) { const act = S.trips.find((t) => t.status === 'Active') || S.trips[0]; D.tripId = act ? act.id : ''; saveDraft(); }
+    const buyers = [...new Set(S.orders.map((o) => o.buyer))];
+    $('#view').innerHTML =
+      (D.editId ? '<div class="card" style="background:var(--warnbg)"><b>Editing ' + h(D.editId) + '</b><div class="muted">Changes replace the saved order.</div><button class="btn sm sec" data-act="cancelEdit" style="margin-top:8px">Cancel edit</button></div>' : '') +
+      '<div class="card"><h3>Order details</h3>' +
+      '<label>Trip</label><select data-f="tripId">' + tripOpts(D.tripId) + '</select>' +
+      (S.trips.length ? '' : '<div class="warnline">Add a trip first in the Trips tab.</div>') +
+      '<label>Buyer name</label><input data-f="buyer" list="buyers" value="' + h(D.buyer) + '" autocomplete="off" placeholder="e.g. Vanessa"><datalist id="buyers">' + buyers.map((b) => '<option value="' + h(b) + '">').join('') + '</datalist>' +
+      '<div class="row"><div><label>Contact</label><input data-f="contact" type="tel" value="' + h(D.contact) + '"></div><div><label>Order date</label><input data-f="date" type="date" value="' + h(D.date) + '"></div></div></div>' +
+      '<div class="card"><h3>Items</h3><div id="items">' + D.items.map(itemHtml).join('') + '</div><button class="btn sec block" data-act="addItem">+ Add item</button></div>' +
+      '<div class="card"><h3>Charges &amp; payment</h3><div class="row"><div><label>Shopping / effort (₱)</label><input data-f="effort" type="number" inputmode="decimal" step="any" value="' + h(D.effort) + '"></div><div><label>Other charge (₱)</label><input data-f="other" type="number" inputmode="decimal" step="any" value="' + h(D.other) + '"></div></div>' +
+      '<div class="row"><div><label>Amount paid (₱)</label><input data-f="paid" type="number" inputmode="decimal" step="any" value="' + h(D.paid) + '"></div><div><label>Order status</label><select data-f="status">' + opts(C.STATUSES, D.status) + '</select></div></div>' +
+      '<label>Notes</label><textarea data-f="notes">' + h(D.notes) + '</textarea></div>' +
+      '<div class="card sum" id="sum"></div>';
+    $('#bar').innerHTML = '<div><div class="t">Final buyer payment</div><div class="v" id="bFinal">₱0.00</div><div class="t" id="bBal"></div></div><button class="btn" data-act="saveOrder">' + (D.editId ? 'Update order' : 'Submit order') + '</button>';
+    recalc();
+  }
+  function itemHtml(it, i) {
+    return '<div class="item" data-i="' + i + '"><div class="top"><div><label>Item</label><input data-f="name" value="' + h(it.name) + '" placeholder="Item name"></div><button class="x" data-act="rmItem" title="Remove">✕</button></div>' +
+      '<div class="row"><div><label>Qty</label><input data-f="qty" type="number" inputmode="numeric" min="1" value="' + h(it.qty) + '"></div><div><label>Unit price (₱)</label><input data-f="price" type="number" inputmode="decimal" step="any" value="' + h(it.price) + '"></div></div>' +
+      '<div class="row"><div><label>Packed size</label><select data-f="size">' + opts(Object.keys(C.SIZES), it.size) + '</select></div><div><label>Weight kg / item</label><input data-f="weight" type="number" inputmode="decimal" step="any" value="' + h(it.weight) + '"></div></div>' +
+      '<label>Override final total (optional)</label><input data-f="override" type="number" inputmode="decimal" step="any" value="' + h(it.override) + '" placeholder="Only if agreed price differs">' +
+      '<div class="calc" id="calc' + i + '"></div></div>';
+  }
+  function recalc() {
+    if (tab !== 'order') return;
+    const m = C.metrics(D, S.settings);
+    D.items.forEach((it, i) => {
+      const l = C.calcLine(it, S.settings), el = $('#calc' + i); if (!el) return;
+      el.innerHTML = l ? '<span>Cost <b>' + money(l.itemCost) + '</b></span><span>Svc <b>' + money(l.service) + '</b></span><span>Size <b>' + money(l.sizeFee) + '</b></span><span>Wt <b>' + money(l.weightFee) + '</b></span><span>Est. <b>' + money(l.estimated) + '</b></span><span>Final <b>' + money(l.final) + '</b></span>' +
+        (l.inquire ? '<div class="warnline" style="width:100%">Over 3 kg: weight fee is “please inquire”. Use the override if you agree a price.</div>' : '') : 'Enter item name and unit price';
+    });
+    const row = (a, b, c) => '<div' + (c ? ' class="' + c + '"' : '') + '><span>' + a + '</span><span>' + b + '</span></div>';
+    $('#sum').innerHTML = '<h3>Order summary</h3>' + row('Item cost', money(m.itemCost)) + row('Service ' + Math.round(S.settings.serviceRate * 1000) / 10 + '%', money(m.service)) + row('Size fees', money(m.sizeFee)) + row('Weight fees', money(m.weightFee)) +
+      row('Shopping / effort', money(m.effort)) + row('Other charge', money(m.other)) + row('Estimated total', money(m.estimated)) + (m.override !== null ? row('Override amount', money(m.override)) : '') +
+      row('Final buyer payment', money(m.final), 'big') + row('Amount paid', money(m.paid)) + row('Balance due', money(m.balance)) + row('Payment status', payPill(m.payStatus));
+    $('#bFinal').textContent = money(m.final);
+    $('#bBal').textContent = 'Balance ' + money(m.balance) + ' · ' + m.payStatus;
+  }
+  function saveOrder() {
+    if (!D.tripId) return toast('Select a trip.');
+    if (!D.buyer.trim()) return toast('Enter the buyer name.');
+    const partial = D.items.findIndex((i) => (i.name.trim() && !C.has(i.price)) || (!i.name.trim() && C.has(i.price)));
+    if (partial >= 0) return toast('Item ' + (partial + 1) + ' needs both a name and a unit price.');
+    const items = D.items.filter((i) => i.name.trim() && C.has(i.price));
+    if (!items.length) return toast('Enter at least one item.');
+    const base = { date: D.date || todayISO(), buyer: D.buyer.trim(), contact: D.contact.trim(), tripId: D.tripId, items: items.map((i) => Object.assign({}, i)), effort: C.num(D.effort), other: C.num(D.other), paid: C.num(D.paid), status: D.status, notes: D.notes.trim(), updated: nowISO() };
+    if (D.editId) {
+      const o = S.orders.find((x) => x.id === D.editId); Object.assign(o, base); toast('Order ' + o.id + ' updated.');
+    } else {
+      const d = new Date(); let id = 'PB-' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds());
+      while (S.orders.some((x) => x.id === id)) id += 'a';
+      S.orders.push(Object.assign({ id }, base)); toast('Order ' + id + ' logged.');
+    }
+    save(); const keep = D.tripId; D = null; D = newDraft(); D.tripId = keep; saveDraft(); renderOrder(); window.scrollTo(0, 0);
+  }
+
+  /* ---------- ORDERS (log) ---------- */
+  function renderOrders() {
+    const log = C.buildLog(S);
+    let rows = log.filter((r) => {
+      if (F.trip && r.o.tripId !== F.trip) return false;
+      if (F.chip === 'Owing' && r.m.balance <= 0) return false;
+      if (C.STATUSES.includes(F.chip) && r.o.status !== F.chip) return false;
+      const q = F.q.trim().toLowerCase();
+      return !q || (r.o.buyer + ' ' + r.m.summary + ' ' + r.o.id + ' ' + (r.o.contact || '')).toLowerCase().includes(q);
+    }).sort((a, b) => (b.o.date + (b.o.updated || '')).localeCompare(a.o.date + (a.o.updated || '')));
+    const owing = rows.reduce((a, r) => a + r.m.balance, 0);
+    const lb = +localStorage.getItem(BKEY) || 0;
+    const stale = S.orders.length && (!lb || Date.now() - lb > 7 * 864e5);
+    $('#view').innerHTML =
+      (stale ? '<div class="card" style="background:var(--warnbg)">Your data lives only on this phone. <a href="#" data-act="goMore" style="color:var(--pri);font-weight:600">Back up / export →</a></div>' : '') +
+      '<div class="kpis"><div class="kpi"><small>Orders shown</small><div>' + rows.length + '</div></div><div class="kpi"><small>Outstanding balance</small><div class="' + (owing > 0 ? 'neg' : 'pos') + '">' + money(owing) + '</div></div></div>' +
+      '<input id="q" type="search" placeholder="Search buyer, item or order ID" value="' + h(F.q) + '" style="margin-bottom:8px">' +
+      '<select id="ft" style="margin-bottom:8px"><option value="">All trips</option>' + S.trips.map((t) => '<option value="' + h(t.id) + '"' + (t.id === F.trip ? ' selected' : '') + '>' + h(t.id) + '</option>').join('') + '</select>' +
+      '<div class="chips">' + ['All', 'Owing'].concat(C.STATUSES).map((c) => '<button data-chip="' + c + '" class="' + (F.chip === c ? 'on' : '') + '">' + c + '</button>').join('') + '</div>' +
+      '<div id="list">' + (rows.length ? rows.map(ordCard).join('') : '<div class="empty">No orders match.<br>Create one in the Order tab' + (S.orders.length ? '.' : ', or restore your data in More.') + '</div>') + '</div>';
+  }
+  function ordCard(r) {
+    const o = r.o, m = r.m;
+    return '<button class="ord" data-act="openOrder" data-id="' + h(o.id) + '"><div class="h"><span>' + h(o.buyer) + '</span><span>' + money(m.final) + '</span></div><div class="s">' + h(m.summary || '—') + '</div><div class="f"><span class="muted">' + fdate(o.date) + ' · ' + h(o.tripId) + '</span><span>' + payPill(m.payStatus) + ' <span class="pill">' + h(o.status) + '</span></span></div>' + (m.balance > 0 ? '<div class="neg" style="font-size:13px;margin-top:4px">Balance ' + money(m.balance) + '</div>' : '') + '</button>';
+  }
+  function openOrder(id) {
+    const r = C.buildLog(S).find((x) => x.o.id === id); if (!r) return;
+    const o = r.o, m = r.m;
+    const lines = m.lines.length ? '<table class="t"><tr><th>Item</th><th>Qty</th><th>Total</th></tr>' + m.lines.map((l) => '<tr><td>' + h(l.name) + ' <span class="muted">[' + l.size + ']</span></td><td>' + l.qty + '</td><td>' + money(l.final) + '</td></tr>').join('') + '</table>' : '<div class="muted">' + h(m.summary) + '</div><div class="muted" style="margin-top:6px">Imported from Excel – item lines are not editable, but payment and status are.</div>';
+    const row = (a, b) => '<div><span>' + a + '</span><span>' + b + '</span></div>';
+    openSheet('<h2>' + h(o.buyer) + '<button class="btn sm ghost" data-act="closeSheet">Close</button></h2>' +
+      '<div class="card"><div class="muted">' + h(o.id) + ' · ' + fdate(o.date) + ' · ' + h(o.tripId) + '</div>' + (o.contact ? '<div style="margin-top:4px">📞 <a href="tel:' + h(o.contact) + '">' + h(o.contact) + '</a></div>' : '') + '<div style="margin-top:10px">' + lines + '</div></div>' +
+      '<div class="card sum">' + row('Item cost', money(m.itemCost)) + row('Fees (service, size, weight, effort, other)', money(m.final - m.itemCost)) + row('Final total', '<b>' + money(m.final) + '</b>') + row('Amount paid', money(m.paid)) + row('Balance', '<b class="' + (m.balance > 0 ? 'neg' : 'pos') + '">' + money(m.balance) + '</b>') + row('Payment', payPill(m.payStatus)) + row('Fee income', money(m.feeIncome)) + row('Allocated expenses', money(r.alloc)) + row('Net profit', money(r.net) + ' (' + pct(r.margin) + ')') + '</div>' +
+      '<div class="card"><label>Order status</label><select id="oStatus" data-id="' + h(o.id) + '">' + opts(C.STATUSES, o.status) + '</select>' +
+      '<label>Record a payment (₱)</label><div class="row"><input id="oPay" type="number" inputmode="decimal" step="any" placeholder="Amount received"><button class="btn" data-act="addPay" data-id="' + h(o.id) + '" style="flex:none">Add</button></div>' +
+      (m.balance > 0 ? '<button class="btn sec block" data-act="payFull" data-id="' + h(o.id) + '" style="margin-top:8px">Mark fully paid (' + money(m.balance) + ')</button>' : '') +
+      '<label>Notes</label><textarea id="oNotes" data-id="' + h(o.id) + '">' + h(o.notes) + '</textarea></div>' +
+      '<div class="row"><button class="btn sec" data-act="copyMsg" data-id="' + h(o.id) + '">Copy buyer message</button>' + (o.items ? '<button class="btn sec" data-act="editOrder" data-id="' + h(o.id) + '">Edit order</button>' : '') + '</div>' +
+      '<button class="btn bad block" data-act="delOrder" data-id="' + h(o.id) + '" style="margin-top:10px">Delete order</button>');
+  }
+  function touch(o) { o.updated = nowISO(); save(); }
+  function buyerMessage(id) {
+    const o = S.orders.find((x) => x.id === id), m = C.metrics(o, S.settings);
+    let t = 'Hi ' + o.buyer + '! Your Pasabuy order (' + o.id + '):\n';
+    if (m.lines.length) m.lines.forEach((l) => { t += '• ' + l.qty + 'x ' + l.name + ' – ' + money(l.final) + '\n'; }); else t += m.summary + '\n';
+    if (m.effort || m.other) t += '• Other charges – ' + money(m.effort + m.other) + '\n';
+    t += '\nTotal: ' + money(m.final) + '\nPaid: ' + money(m.paid) + '\nBalance: ' + money(m.balance) + '\nStatus: ' + o.status + '\nThank you!';
+    return t;
+  }
+
+  /* ---------- TRIPS ---------- */
+  function renderTrips() {
+    const sm = C.tripSummary(S);
+    $('#view').innerHTML = '<button class="btn block" data-act="addTrip" style="margin-bottom:12px">+ New trip</button>' +
+      (sm.length ? sm.map((r) => '<button class="ord" data-act="openTrip" data-id="' + h(r.trip.id) + '"><div class="h"><span>' + h(r.trip.name) + '</span><span class="pill ' + (r.trip.status === 'Active' ? 'ok' : '') + '">' + h(r.trip.status) + '</span></div><div class="s">' + h(r.trip.id) + (r.trip.month ? ' · ' + fmonth(r.trip.month) : '') + '</div>' +
+        '<div class="row" style="font-size:13px"><div>Orders<br><b>' + r.orders + '</b></div><div>Fee income<br><b>' + money(r.fee) + '</b></div><div>Net profit<br><b class="' + (r.net < 0 ? 'neg' : 'pos') + '">' + money(r.net) + '</b></div></div></button>').join('') : '<div class="empty">No trips yet. Add one to start logging orders.</div>');
+  }
+  function openTrip(id) {
+    const r = C.tripSummary(S).find((x) => x.trip.id === id); if (!r) return;
+    const exps = S.expenses.filter((e) => e.tripId === id);
+    const row = (a, b) => '<div><span>' + a + '</span><span>' + b + '</span></div>';
+    openSheet('<h2>' + h(r.trip.name) + '<button class="btn sm ghost" data-act="closeSheet">Close</button></h2>' +
+      '<div class="card sum">' + row('Orders', r.orders) + row('Customer revenue', money(r.revenue)) + row('Fee income', money(r.fee)) + row('Business expenses', money(r.expenses)) + row('Net profit', '<b class="' + (r.net < 0 ? 'neg' : 'pos') + '">' + money(r.net) + '</b>') + row('Profit margin', pct(r.margin)) + row('Avg profit / order', money(r.avg)) + row('Unpaid balances', '<b class="' + (r.outstanding > 0 ? 'neg' : '') + '">' + money(r.outstanding) + '</b>') + '</div>' +
+      '<div class="card"><h3>Expenses</h3>' + (exps.length ? '<table class="t">' + exps.map((e) => '<tr><td>' + h(e.category) + '<div class="muted">' + h(e.desc || '') + ' · ' + h(e.method) + '</div></td><td>' + money(e.amount) + ' <button class="x" data-act="delExp" data-id="' + h(e.id) + '" data-trip="' + h(id) + '" style="min-height:0;padding:0 4px;font-size:16px">✕</button></td></tr>').join('') + '</table>' : '<div class="muted">No expenses logged.</div>') +
+      '<button class="btn sec block" data-act="addExp" data-trip="' + h(id) + '" style="margin-top:10px">+ Add expense</button></div>' +
+      '<div class="row"><button class="btn sec" data-act="editTrip" data-id="' + h(id) + '">Edit trip</button><button class="btn bad" data-act="delTrip" data-id="' + h(id) + '">Delete trip</button></div>');
+  }
+  function tripForm(t) {
+    const n = !t; t = t || { id: '', name: '', dest: '', month: todayISO().slice(0, 7), status: 'Planned', alloc: 'Equal by Order', notes: '' };
+    openSheet('<h2>' + (n ? 'New trip' : 'Edit trip') + '<button class="btn sm ghost" data-act="closeSheet">Close</button></h2><div class="card">' +
+      '<label>Destination</label><input id="tDest" value="' + h(t.dest) + '" placeholder="e.g. Thailand"><div class="row"><div><label>Travel month</label><input id="tMonth" type="month" value="' + h(t.month) + '"></div><div><label>Status</label><select id="tStatus">' + opts(['Planned', 'Active', 'Completed'], t.status) + '</select></div></div>' +
+      '<label>Trip ID</label><input id="tId" value="' + h(t.id) + '" ' + (n ? '' : 'readonly') + ' placeholder="e.g. THA-2026-09"><label>Trip name</label><input id="tName" value="' + h(t.name) + '"><label>Default expense allocation</label><select id="tAlloc">' + opts(C.TRIP_METHODS, t.alloc) + '</select><label>Notes</label><textarea id="tNotes">' + h(t.notes) + '</textarea></div>' +
+      '<button class="btn block" data-act="saveTrip" data-new="' + (n ? 1 : 0) + '">Save trip</button>');
+  }
+  function expForm(tripId) {
+    const t = S.trips.find((x) => x.id === tripId);
+    const ords = S.orders.filter((o) => o.tripId === tripId);
+    openSheet('<h2>Add expense · ' + h(tripId) + '<button class="btn sm ghost" data-act="openTrip" data-id="' + h(tripId) + '">Back</button></h2><div class="card">' +
+      '<div class="row"><div><label>Date</label><input id="eDate" type="date" value="' + todayISO() + '"></div><div><label>Amount (₱)</label><input id="eAmt" type="number" inputmode="decimal" step="any"></div></div>' +
+      '<label>Category</label><select id="eCat">' + opts(C.CATEGORIES) + '</select><label>Description</label><input id="eDesc">' +
+      '<label>Allocation method</label><select id="eMeth">' + opts(C.METHODS, t ? t.alloc : 'Equal by Order') + '</select>' +
+      '<div id="eOrdWrap" style="display:none"><label>Order (for Direct Order)</label><select id="eOrd">' + ords.map((o) => '<option value="' + h(o.id) + '">' + h(o.buyer) + ' · ' + h(o.id) + '</option>').join('') + '</select></div>' +
+      '<label>Notes</label><input id="eNotes"></div><button class="btn block" data-act="saveExp" data-trip="' + h(tripId) + '">Save expense</button>');
+  }
+
+  /* ---------- MORE ---------- */
+  function renderMore() {
+    const lb = +localStorage.getItem(BKEY);
+    $('#view').innerHTML =
+      '<div class="card"><h3>Export &amp; backup</h3><p class="muted" style="margin-top:0">Everything is stored on this phone. Export an Excel copy (same columns as your workbook) or a backup file regularly.</p>' +
+      '<button class="btn block" data-act="xlsx">Export to Excel (.xlsx)</button><div class="row" style="margin-top:8px"><button class="btn sec" data-act="backup">Backup (.json)</button><button class="btn sec" data-act="restore">Restore / import</button></div>' +
+      '<input type="file" id="file" accept=".json,application/json" style="display:none"><div class="muted" style="margin-top:8px">Last backup/export: ' + (lb ? new Date(lb).toLocaleString() : 'never') + '</div></div>' +
+      '<div class="card"><h3>Pricing setting</h3><label>Service fee (% of item cost)</label><input id="rate" type="number" inputmode="decimal" step="any" value="' + (S.settings.serviceRate * 100) + '"></div>' +
+      '<div class="card"><h3>Fee guide</h3><table class="t"><tr><th>Packed size</th><th>Fee / item</th></tr><tr><td>Small ≤ 20×15×10 cm</td><td>Free</td></tr><tr><td>Medium ≤ 30×20×15 cm</td><td>₱100</td></tr><tr><td>Large ≤ 45×35×20 cm</td><td>₱250</td></tr><tr><td>Extra Large</td><td>₱500</td></tr></table>' +
+      '<table class="t" style="margin-top:10px"><tr><th>Weight / item</th><th>Fee / item</th></tr><tr><td>0–500 g</td><td>Free</td></tr><tr><td>500 g–1 kg</td><td>₱100</td></tr><tr><td>1–2 kg</td><td>₱200</td></tr><tr><td>2–3 kg</td><td>₱300</td></tr><tr><td>3 kg and above</td><td>Inquire</td></tr></table>' +
+      '<p class="muted">Total = item cost + service fee + size fee + weight fee, plus any shopping/effort and other charge. Final prices are confirmed after purchase.</p></div>' +
+      '<div class="card"><h3>Danger zone</h3><button class="btn bad block" data-act="wipe">Delete all data on this device</button></div>' +
+      '<div class="muted" style="text-align:center">Pasabuy Tracker · works offline once installed</div>';
+  }
+  function stamp() { localStorage.setItem(BKEY, Date.now()); }
+  function doImport(data, mode) {
+    const merge = (cur, inc) => { const m = new Map(cur.map((x) => [x.id, x])); inc.forEach((x) => m.set(x.id, x)); return [...m.values()]; };
+    if (mode === 'replace') S = { settings: Object.assign({}, C.DEFAULT_SETTINGS, data.settings), trips: data.trips || [], expenses: data.expenses || [], orders: data.orders || [] };
+    else { S.trips = merge(S.trips, data.trips || []); S.expenses = merge(S.expenses, data.expenses || []); S.orders = merge(S.orders, data.orders || []); }
+    save(); closeSheet(); toast('Imported ' + (data.orders || []).length + ' orders.'); go('orders');
+  }
+
+  /* ---------- events ---------- */
+  document.addEventListener('input', (e) => {
+    const t = e.target, f = t.dataset && t.dataset.f;
+    if (f && tab === 'order') {
+      const it = t.closest('.item');
+      if (it) D.items[+it.dataset.i][f] = t.value; else D[f] = t.value;
+      saveDraft(); recalc();
+    }
+    if (t.id === 'q') { F.q = t.value; const p = t.selectionStart; renderOrders(); const q = $('#q'); q.focus(); q.setSelectionRange(p, p); }
+    if (t.id === 'oNotes') { const o = S.orders.find((x) => x.id === t.dataset.id); o.notes = t.value; touch(o); }
+    if (t.id === 'rate') { const v = parseFloat(t.value); if (isFinite(v) && v >= 0) { S.settings.serviceRate = v / 100; save(); } }
+  });
+  document.addEventListener('change', (e) => {
+    const t = e.target;
+    if (t.dataset && t.dataset.f === 'buyer' && !D.contact) {
+      const prev = [...S.orders].reverse().find((o) => o.buyer.toLowerCase() === t.value.trim().toLowerCase() && o.contact);
+      if (prev) { D.contact = prev.contact; const c = $('[data-f=contact]'); if (c) c.value = prev.contact; saveDraft(); }
+    }
+    if (t.dataset && t.dataset.f === 'tripId') { saveDraft(); }
+    if (t.id === 'ft') { F.trip = t.value; renderOrders(); }
+    if (t.id === 'oStatus') { const o = S.orders.find((x) => x.id === t.dataset.id); o.status = t.value; touch(o); toast('Status updated.'); }
+    if (t.id === 'eMeth') $('#eOrdWrap').style.display = t.value === 'Direct Order' ? 'block' : 'none';
+    if (t.id === 'tDest' || t.id === 'tMonth') { const idEl = $('#tId'); if (idEl && !idEl.readOnly && !idEl.dataset.touched) { const d = $('#tDest').value.trim(), m = $('#tMonth').value; if (d && m) { idEl.value = d.slice(0, 3).toUpperCase() + '-' + m; $('#tName').value = d + ' – ' + fmonth(m); } } }
+    if (t.id === 'file' && t.files[0]) {
+      const rd = new FileReader();
+      rd.onload = () => {
+        try {
+          const d = JSON.parse(rd.result); if (!Array.isArray(d.orders)) throw 0;
+          openSheet('<h2>Import ' + d.orders.length + ' orders<button class="btn sm ghost" data-act="closeSheet">Cancel</button></h2><div class="card"><p>Found ' + (d.trips || []).length + ' trips, ' + (d.expenses || []).length + ' expenses and ' + d.orders.length + ' orders.</p><button class="btn block" id="impM">Merge with current data</button><button class="btn bad block" id="impR" style="margin-top:8px">Replace everything</button></div>');
+          $('#impM').onclick = () => doImport(d, 'merge'); $('#impR').onclick = () => doImport(d, 'replace');
+        } catch (err) { toast('That file is not a Pasabuy backup.'); }
+      };
+      rd.readAsText(t.files[0]); t.value = '';
+    }
+  });
+  document.addEventListener('click', async (e) => {
+    const nb = e.target.closest('nav button'); if (nb) return go(nb.dataset.tab);
+    const chip = e.target.closest('[data-chip]'); if (chip) { F.chip = chip.dataset.chip; return renderOrders(); }
+    if (e.target.id === 'sbg') return closeSheet();
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const a = b.dataset.act, id = b.dataset.id;
+    if (a === 'goMore') { e.preventDefault(); return go('more'); }
+    if (a === 'closeSheet') return closeSheet();
+    if (a === 'addItem') { D.items.push(blankItem()); saveDraft(); renderOrder(); const els = document.querySelectorAll('.item'); els[els.length - 1].scrollIntoView({ block: 'center' }); return; }
+    if (a === 'rmItem') { const i = +b.closest('.item').dataset.i; D.items.splice(i, 1); if (!D.items.length) D.items.push(blankItem()); saveDraft(); return renderOrder(); }
+    if (a === 'saveOrder') return saveOrder();
+    if (a === 'cancelEdit') { D = null; D = newDraft(); saveDraft(); return renderOrder(); }
+    if (a === 'openOrder') return openOrder(id);
+    if (a === 'addPay') { const v = parseFloat($('#oPay').value); if (!(v > 0)) return toast('Enter an amount.'); const o = S.orders.find((x) => x.id === id); o.paid = C.num(o.paid) + v; touch(o); toast('Payment recorded.'); renderOrders(); return openOrder(id); }
+    if (a === 'payFull') { const o = S.orders.find((x) => x.id === id); o.paid = C.metrics(o, S.settings).final; touch(o); toast('Marked fully paid.'); renderOrders(); return openOrder(id); }
+    if (a === 'copyMsg') { const txt = buyerMessage(id); try { await navigator.clipboard.writeText(txt); toast('Message copied.'); } catch (err) { prompt('Copy this message:', txt); } return; }
+    if (a === 'editOrder') { const o = S.orders.find((x) => x.id === id); D = { editId: o.id, tripId: o.tripId, buyer: o.buyer, contact: o.contact || '', date: o.date, items: o.items.map((i) => Object.assign({}, i)), effort: o.effort, other: o.other, paid: o.paid, status: o.status, notes: o.notes || '' }; saveDraft(); closeSheet(); return go('order'); }
+    if (a === 'delOrder') { if (confirm('Delete this order permanently?')) { S.orders = S.orders.filter((x) => x.id !== id); save(); closeSheet(); toast('Order deleted.'); renderOrders(); } return; }
+    if (a === 'addTrip') return tripForm();
+    if (a === 'editTrip') return tripForm(S.trips.find((t) => t.id === id));
+    if (a === 'openTrip') return openTrip(id);
+    if (a === 'saveTrip') {
+      const t = { id: $('#tId').value.trim(), name: $('#tName').value.trim(), dest: $('#tDest').value.trim(), month: $('#tMonth').value, status: $('#tStatus').value, alloc: $('#tAlloc').value, notes: $('#tNotes').value.trim() };
+      if (!t.id || !t.name) return toast('Trip ID and name are required.');
+      if (b.dataset.new === '1') { if (S.trips.some((x) => x.id === t.id)) return toast('That Trip ID already exists.'); S.trips.push(t); } else Object.assign(S.trips.find((x) => x.id === t.id), t);
+      save(); closeSheet(); toast('Trip saved.'); return renderTrips();
+    }
+    if (a === 'delTrip') { if (S.orders.some((o) => o.tripId === id) || S.expenses.some((x) => x.tripId === id)) return toast('Trip has orders or expenses – cannot delete.'); if (confirm('Delete this trip?')) { S.trips = S.trips.filter((t) => t.id !== id); save(); closeSheet(); renderTrips(); } return; }
+    if (a === 'addExp') return expForm(b.dataset.trip);
+    if (a === 'saveExp') {
+      const amt = parseFloat($('#eAmt').value); if (!(amt > 0)) return toast('Enter the amount.');
+      const meth = $('#eMeth').value; if (meth === 'Direct Order' && !$('#eOrd').value) return toast('Choose the order.');
+      let n = S.expenses.length + 1, eid; do { eid = 'EXP-' + String(n++).padStart(3, '0'); } while (S.expenses.some((x) => x.id === eid));
+      S.expenses.push({ id: eid, date: $('#eDate').value, tripId: b.dataset.trip, category: $('#eCat').value, desc: $('#eDesc').value.trim(), amount: amt, method: meth, orderId: meth === 'Direct Order' ? $('#eOrd').value : '', notes: $('#eNotes').value.trim() });
+      save(); toast('Expense added.'); renderTrips(); return openTrip(b.dataset.trip);
+    }
+    if (a === 'delExp') { if (confirm('Delete this expense?')) { S.expenses = S.expenses.filter((x) => x.id !== id); save(); renderTrips(); openTrip(b.dataset.trip); } return; }
+    if (a === 'xlsx') { const blob = C.buildXlsx(C.exportSheets(S)); if (await saveBlob(blob, 'Pasabuy-' + todayISO() + '.xlsx')) { stamp(); renderMore(); } return; }
+    if (a === 'backup') { const blob = new Blob([JSON.stringify({ app: 'pasabuy', version: 1, exported: nowISO(), settings: S.settings, trips: S.trips, expenses: S.expenses, orders: S.orders }, null, 1)], { type: 'application/json' }); if (await saveBlob(blob, 'pasabuy-backup-' + todayISO() + '.json')) { stamp(); renderMore(); } return; }
+    if (a === 'restore') return $('#file').click();
+    if (a === 'wipe') { if (confirm('Delete ALL trips, orders and expenses on this device?') && confirm('This cannot be undone. Really delete?')) { S = { settings: Object.assign({}, C.DEFAULT_SETTINGS), trips: [], expenses: [], orders: [] }; save(); D = null; D = newDraft(); saveDraft(); toast('All data deleted.'); renderMore(); } return; }
+  });
+  document.addEventListener('input', (e) => { if (e.target.id === 'tId') e.target.dataset.touched = 1; });
+
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
+  if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
+  go('order');
+})();
+</script>
+</body></html>
